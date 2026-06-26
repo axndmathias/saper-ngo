@@ -27,21 +27,25 @@ export function Hero() {
           {/* Headline */}
           <h1 className="font-serif font-bold text-white leading-[1.08] mb-6">
             <span className="block text-4xl md:text-5xl lg:text-6xl">
-              {t("Gemeinsam für", "Juntos por")}
-            </span>
-            <span className="block text-4xl md:text-5xl lg:text-6xl">
-              {t("eine bessere Welt", "um mundo melhor")}
-            </span>
-            <span className="block text-4xl md:text-5xl lg:text-6xl text-accent mt-2">
-              {t("in Rio de Janeiro.", "no Rio de Janeiro.")}
+              {t(
+                "Suíça apoia projetos no Rio de Janeiro",
+                "Suíça apoia projetos no Rio de Janeiro"
+              )}
             </span>
           </h1>
+
+          <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-accent mb-6 leading-tight max-w-2xl">
+            {t(
+              "Gemeinsam für eine bessere Welt. (Juntos por um mundo melhor)",
+              "Gemeinsam für eine bessere Welt in Rio de Janeiro."
+            )}
+          </h2>
 
           {/* Body */}
           <p className="text-gray-300 text-base md:text-lg mb-10 max-w-md leading-relaxed border-l-2 border-accent/50 pl-4">
             {t(
               "Verein SAPER sammelt in der Schweiz Mittel für soziale Projekte — für ältere Menschen, Kinder und soziale Wiedereingliederung in Rio de Janeiro.",
-              "A Associação SAPER arrecada fundos na Suíça para projetos sociais — para idosos, crianças e reintegração social no Rio de Janeiro."
+              "A Associação SAPER arrecada fundos na Suíça para projetos sociais voltados a idosos, crianças e reintegração social no Rio de Janeiro."
             )}
           </p>
 
@@ -51,13 +55,13 @@ export function Hero() {
               href="#about"
               className="bg-accent text-accent-foreground px-8 py-3.5 rounded font-bold hover:bg-white hover:text-primary transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
             >
-              {t("Mehr erfahren", "Saiba mais")}
+              {t("Mehr erfahren", "Saber mais")}
             </a>
             <a
               href="#events"
               className="border border-white/30 text-white px-8 py-3.5 rounded font-bold hover:bg-white/10 transition-all"
             >
-              {t("Nächstes Event", "Próximo evento")}
+              {t("Nächstes Event", "Próximo Evento")}
             </a>
           </div>
         </motion.div>
