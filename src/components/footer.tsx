@@ -1,5 +1,5 @@
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaHandHoldingHeart, FaCheckCircle, FaCopy } from "react-icons/fa";
-import saperLogo from "@/assets/saper_logo.jpg";
+import saperLogo from "@/assets/saper_logo.png";
 import { useLang } from "@/contexts/language-context";
 import { useToast } from "@/hooks/use-toast";
 

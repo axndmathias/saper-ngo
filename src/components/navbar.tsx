@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { FaBars, FaTimes, FaInstagram } from "react-icons/fa";
-import saperLogo from "@/assets/saper_logo.jpg";
+import saperLogo from "@/assets/saper_logo.png";
 import { useLang } from "@/contexts/language-context";
 
 export function Navbar() {

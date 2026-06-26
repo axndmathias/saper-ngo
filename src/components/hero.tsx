@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import saperLogo from "@/assets/saper_logo.jpg";
+import saperLogo from "@/assets/saper_logo.png";
 import { useLang } from "@/contexts/language-context";
 
 export function Hero() {
