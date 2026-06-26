@@ -22,6 +22,7 @@
 | DONE-04 | Forcar um novo deploy do GitHub Pages para publicar a versao mais recente. | Einen neuen GitHub-Pages-Deploy erzwingen, um die neueste Version zu publizieren. | high | done |
 | DONE-05 | Remover o subtitulo do navbar abaixo de SAPER. | Den Untertitel in der Navbar unter SAPER entfernen. | high | done |
 | DONE-06 | Atualizar a frase institucional no hero e no rodape. | Den institutionellen Satz im Hero und Footer aktualisieren. | high | done |
+| DONE-07 | Manter os botoes "Mehr erfahren / Saiba mais" e "Nächstes Event / Próximo evento" sempre lado a lado com a mesma largura, sem crescer no responsive. | Die Buttons "Mehr erfahren / Saiba mais" und "Nächstes Event / Próximo evento" immer nebeneinander mit gleicher Breite halten, ohne im Responsive-Modus zu wachsen. | high | done |
 
 ## 4. Prioridade alta / Hohe Prioritaet
 | ID | PT-BR | DE-CH | Você participa? | Status |
@@ -31,8 +32,6 @@
 | B-03 | Confirmar o texto final do evento principal, data, local e CTA. | Den finalen Text des Hauptevents, Datum, Ort und CTA bestaetigen. | Sim / Ja | pending |
 | B-04 | Revisar a lista final de imagens que realmente representam a SAPER. | Die finale Bildauswahl pruefen, die SAPER wirklich repraesentiert. | Sim / Ja | pending |
 | B-05 | Revisar a experiencia mobile para evitar cortes, excesso de espaco e desalinhamentos. | Mobile-Erlebnis pruefen, um Schnitte, zu viel Abstand und Fehlanordnungen zu vermeiden. | Nein / Nein | pending |
-| B-06 | Manter os botoes "Mehr erfahren / Saiba mais" e "Nächstes Event / Próximo evento" sempre lado a lado com a mesma largura, sem crescer no responsive. | Die Buttons "Mehr erfahren / Saiba mais" und "Nächstes Event / Próximo evento" immer nebeneinander mit gleicher Breite halten, ohne im Responsive-Modus zu wachsen. | Nein / Nein | pending |
-
 ## 5. Prioridade media / Mittlere Prioritaet
 | ID | PT-BR | DE-CH | Você participa? | Status |
 | :--- | :--- | :--- | :--- | :--- |
