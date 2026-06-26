@@ -31,22 +31,23 @@
 | B-03 | Confirmar o texto final do evento principal, data, local e CTA. | Den finalen Text des Hauptevents, Datum, Ort und CTA bestaetigen. | Sim / Ja | pending |
 | B-04 | Revisar a lista final de imagens que realmente representam a SAPER. | Die finale Bildauswahl pruefen, die SAPER wirklich repraesentiert. | Sim / Ja | pending |
 | B-05 | Revisar a experiencia mobile para evitar cortes, excesso de espaco e desalinhamentos. | Mobile-Erlebnis pruefen, um Schnitte, zu viel Abstand und Fehlanordnungen zu vermeiden. | Nein / Nein | pending |
+| B-06 | Manter os botoes "Mehr erfahren / Saiba mais" e "Nächstes Event / Próximo evento" sempre lado a lado com a mesma largura, sem crescer no responsive. | Die Buttons "Mehr erfahren / Saiba mais" und "Nächstes Event / Próximo evento" immer nebeneinander mit gleicher Breite halten, ohne im Responsive-Modus zu wachsen. | Nein / Nein | pending |
 
 ## 5. Prioridade media / Mittlere Prioritaet
 | ID | PT-BR | DE-CH | Você participa? | Status |
 | :--- | :--- | :--- | :--- | :--- |
-| B-06 | Definir title, description e meta tags para SEO basico. | Title, Description und Meta-Tags fuer basisches SEO definieren. | Nein / Nein | pending |
-| B-07 | Revisar se a newsletter deve ser apenas CTA ou captura real. | Pruefen, ob der Newsletter nur CTA oder echte Erfassung sein soll. | Sim / Ja | pending |
-| B-08 | Ajustar a galeria com imagens mais coerentes e menos repetitivas. | Die Galerie mit passenderen und weniger wiederholten Bildern anpassen. | Sim / Ja | pending |
-| B-09 | Refinar a secao de depoimentos para incluir historias mais fortes. | Die Testimonials-Sektion mit staerkeren Geschichten verfeinern. | Sim / Ja | pending |
-| B-10 | Padronizar microcopy dos botoes e CTAs da landing page. | Die Microcopy der Buttons und CTAs auf der Landingpage vereinheitlichen. | Nein / Nein | pending |
+| B-07 | Definir title, description e meta tags para SEO basico. | Title, Description und Meta-Tags fuer basisches SEO definieren. | Nein / Nein | pending |
+| B-08 | Revisar se a newsletter deve ser apenas CTA ou captura real. | Pruefen, ob der Newsletter nur CTA oder echte Erfassung sein soll. | Sim / Ja | pending |
+| B-09 | Ajustar a galeria com imagens mais coerentes e menos repetitivas. | Die Galerie mit passenderen und weniger wiederholten Bildern anpassen. | Sim / Ja | pending |
+| B-10 | Refinar a secao de depoimentos para incluir historias mais fortes. | Die Testimonials-Sektion mit staerkeren Geschichten verfeinern. | Sim / Ja | pending |
+| B-11 | Padronizar microcopy dos botoes e CTAs da landing page. | Die Microcopy der Buttons und CTAs auf der Landingpage vereinheitlichen. | Nein / Nein | pending |
 
 ## 6. Prioridade baixa / Niedrige Prioritaet
 | ID | PT-BR | DE-CH | Você participa? | Status |
 | :--- | :--- | :--- | :--- | :--- |
-| B-11 | Planejar um admin panel simples para eventos e fotos. | Ein einfaches Admin-Panel fuer Events und Fotos planen. | Sim / Ja | pending |
-| B-12 | Planejar um backend futuro para voluntariado e newsletter. | Ein spaeteres Backend fuer Freiwillige und Newsletter planen. | Sim / Ja | pending |
-| B-13 | Avaliar automatizacao de publicacao e fluxo editorial. | Automatisierung fuer Publikation und redaktionellen Ablauf pruefen. | Sim / Ja | pending |
+| B-12 | Planejar um admin panel simples para eventos e fotos. | Ein einfaches Admin-Panel fuer Events und Fotos planen. | Sim / Ja | pending |
+| B-13 | Planejar um backend futuro para voluntariado e newsletter. | Ein spaeteres Backend fuer Freiwillige und Newsletter planen. | Sim / Ja | pending |
+| B-14 | Avaliar automatizacao de publicacao e fluxo editorial. | Automatisierung fuer Publikation und redaktionellen Ablauf pruefen. | Sim / Ja | pending |
 
 ## 7. Proximos passos sugeridos / Empfohlene naechste Schritte
 **PT-BR:** Primeiro devemos fechar conteudo, dados oficiais e selecao visual. Depois entramos em refinamentos de SEO, mobile e roadmap tecnico.
