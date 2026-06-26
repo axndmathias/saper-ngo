@@ -73,7 +73,7 @@ export function Hero() {
             <div className="absolute inset-0 rounded-full bg-accent/20 blur-2xl scale-110" />
             <img
               src={saperLogo}
-              alt="Saper"
+              alt="SAPER"
               className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full object-cover border-4 border-accent/40 shadow-2xl"
             />
           </div>

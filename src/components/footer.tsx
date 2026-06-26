@@ -63,8 +63,8 @@ export function Footer() {
           
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-6">
-              <img src={saperLogo} alt="Saper" className="h-14 w-14 rounded-full object-cover border-2 border-accent shadow-md" />
-              <span className="text-white text-3xl font-serif font-bold tracking-wide">Saper.</span>
+              <img src={saperLogo} alt="SAPER" className="h-14 w-14 rounded-full object-cover border-2 border-accent shadow-md" />
+              <span className="text-white text-3xl font-serif font-bold tracking-wide">SAPER.</span>
             </div>
             <p className="text-gray-300 mb-8 max-w-sm leading-relaxed">
               {t(
