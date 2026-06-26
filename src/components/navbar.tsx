@@ -39,9 +39,6 @@ export function Navbar() {
           <img src={saperLogo} alt="SAPER" className="h-12 w-12 rounded-full object-cover border-2 border-accent shadow-md" />
           <div className="flex flex-col leading-none">
             <span className="text-white text-2xl font-serif font-bold tracking-wide">SAPER</span>
-            <span className="mt-1 max-w-[170px] text-[10px] font-medium leading-tight text-white/75 md:max-w-none md:text-xs">
-              A Suíça apoia projetos no Rio de Janeiro
-            </span>
           </div>
         </Link>
 
