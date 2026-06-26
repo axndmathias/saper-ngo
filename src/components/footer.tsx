@@ -147,7 +147,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
-          <p>{t("© 2026 Verein SAPER. Alle Rechte vorbehalten.", "© 2026 Associação SAPER. Todos os direitos reservados.")}</p>
+          <p>{t("© 2026 Verein SAPER – A Suíça apoia projetos no Rio de Janeiro. Alle Rechte vorbehalten.", "© 2026 Associação SAPER – A Suíça apoia projetos no Rio de Janeiro. Todos os direitos reservados.")}</p>
           <div className="flex gap-6">
             <a href="#datenschutz" className="hover:text-white transition-colors">{t("Datenschutz", "Privacidade")}</a>
             <a href="#" className="hover:text-white transition-colors">{t("Nutzungsbedingungen", "Termos de uso")}</a>
