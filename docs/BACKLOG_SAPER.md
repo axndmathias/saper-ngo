@@ -20,8 +20,6 @@
 | DONE-02 | Atualizar os docs de produto e MVP para refletir a landing atual. | Produkt- und MVP-Dokumente an die aktuelle Landingpage anpassen. | medium | done |
 | DONE-03 | Confirmar se o GitHub Pages ainda servia o bundle antigo com logo JPG. | Bestaetigen, ob GitHub Pages noch das alte Bundle mit JPG-Logo ausliefert. | high | done |
 | DONE-04 | Forcar um novo deploy do GitHub Pages para publicar a versao mais recente. | Einen neuen GitHub-Pages-Deploy erzwingen, um die neueste Version zu publizieren. | high | done |
-| DONE-05 | Atualizar o Hero com os novos textos de titulo, subtitulo, apoio e CTAs. | Den Hero mit neuen Texten fuer Titel, Untertitel, Beschreibung und CTAs aktualisieren. | high | done |
-| DONE-06 | Ajustar o topo da pagina com novo H1, H2, texto de apoio e botões. | Den Seitenkopf mit neuem H1, H2, Beschreibung und Buttons anpassen. | high | done |
 
 ## 4. Prioridade alta / Hohe Prioritaet
 | ID | PT-BR | DE-CH | Você participa? | Status |
