@@ -32,6 +32,7 @@
 | B-03 | Confirmar o texto final do evento principal, data, local e CTA. | Den finalen Text des Hauptevents, Datum, Ort und CTA bestaetigen. | Sim / Ja | pending |
 | B-04 | Revisar a lista final de imagens que realmente representam a SAPER. | Die finale Bildauswahl pruefen, die SAPER wirklich repraesentiert. | Sim / Ja | pending |
 | B-05 | Revisar a experiencia mobile para evitar cortes, excesso de espaco e desalinhamentos. | Mobile-Erlebnis pruefen, um Schnitte, zu viel Abstand und Fehlanordnungen zu vermeiden. | Nein / Nein | pending |
+| B-06 | Fazer o botao hamburger do navbar aparecer corretamente em telas pequenas. | Den Hamburger-Button der Navbar auf kleinen Bildschirmen korrekt anzeigen. | Nein / Nein | pending |
 ## 5. Prioridade media / Mittlere Prioritaet
 | ID | PT-BR | DE-CH | Você participa? | Status |
 | :--- | :--- | :--- | :--- | :--- |
