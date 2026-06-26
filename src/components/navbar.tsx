@@ -37,7 +37,7 @@ export function Navbar() {
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 group">
           <img src={saperLogo} alt="SAPER" className="h-12 w-12 rounded-full object-cover border-2 border-accent shadow-md" />
-          <span className="text-white text-2xl font-serif font-bold tracking-wide">SAPER.</span>
+          <span className="text-white text-2xl font-serif font-bold tracking-wide">SAPER</span>
         </Link>
 
         {/* Desktop Nav */}
