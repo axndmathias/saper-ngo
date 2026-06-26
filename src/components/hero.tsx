@@ -49,16 +49,16 @@ export function Hero() {
           </p>
 
           {/* CTA */}
-          <div className="grid w-full max-w-md grid-cols-2 gap-4">
+          <div className="flex w-full max-w-md flex-nowrap gap-4">
             <a
               href="#about"
-              className="flex h-14 w-full min-w-0 items-center justify-center whitespace-nowrap rounded bg-accent px-4 text-center font-bold text-accent-foreground transition-all shadow-lg hover:-translate-y-0.5 hover:bg-white hover:text-primary sm:px-8"
+              className="flex h-14 min-w-0 flex-1 basis-0 items-center justify-center whitespace-nowrap rounded bg-accent px-4 text-center font-bold text-accent-foreground transition-all shadow-lg hover:-translate-y-0.5 hover:bg-white hover:text-primary sm:px-8"
             >
               {t("Mehr erfahren", "Saiba mais")}
             </a>
             <a
               href="#events"
-              className="flex h-14 w-full min-w-0 items-center justify-center whitespace-nowrap rounded border border-white/30 px-4 text-center font-bold text-white transition-all hover:bg-white/10 sm:px-8"
+              className="flex h-14 min-w-0 flex-1 basis-0 items-center justify-center whitespace-nowrap rounded border border-white/30 px-4 text-center font-bold text-white transition-all hover:bg-white/10 sm:px-8"
             >
               {t("Nächstes Event", "Próximo evento")}
             </a>
