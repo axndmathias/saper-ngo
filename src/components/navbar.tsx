@@ -34,7 +34,7 @@ export function Navbar() {
         isScrolled ? "bg-primary shadow-md py-3" : "bg-transparent py-5"
       }`}
     >
-      <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
+      <div className="container mx-auto flex items-center justify-between px-4 md:px-6">
         <Link href="/" className="flex items-center gap-2 group">
           <img src={saperLogo} alt="SAPER" className="h-12 w-12 rounded-full object-cover border-2 border-accent shadow-md" />
           <div className="flex flex-col leading-none">
@@ -94,7 +94,8 @@ export function Navbar() {
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden text-white text-2xl"
+          className="md:hidden absolute right-4 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white shadow-md backdrop-blur-sm"
+          aria-label={isMobileMenuOpen ? t("Fechar menu", "Menü schließen") : t("Abrir menu", "Menü öffnen")}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
