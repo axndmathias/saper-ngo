@@ -20,7 +20,10 @@ export function Hero() {
           <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-1.5 rounded-full mb-8">
             <span className="w-2 h-2 rounded-full bg-accent inline-block" />
             <span className="text-accent text-xs font-bold tracking-widest uppercase">
-              {t("Verein SAPER · Schweiz", "Associação SAPER · Suíça")}
+              {t(
+                "Verein SAPER – A Suíça apoia projetos no Rio de Janeiro",
+                "Associação SAPER – A Suíça apoia projetos no Rio de Janeiro"
+              )}
             </span>
           </div>
 
