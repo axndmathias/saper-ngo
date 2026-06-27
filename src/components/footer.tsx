@@ -1,4 +1,4 @@
-import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaHandHoldingHeart, FaCheckCircle, FaCopy } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaHandHoldingHeart, FaCheckCircle, FaCopy } from "react-icons/fa";
 import saperLogo from "@/assets/saper_logo.png";
 import twintQr from "@/assets/twint-qr.png";
 import pixQr from "@/assets/pix-qr.png";
@@ -92,9 +92,6 @@ export function Footer() {
               <a href="#" className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center text-primary hover:bg-white transition-colors shadow-sm">
                 <FaFacebookF />
               </a>
-              <a href="#" className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center text-primary hover:bg-white transition-colors shadow-sm">
-                <FaTwitter />
-              </a>
               <a 
                 href="https://www.instagram.com/saperrj?igsh=dTkzODA4Z20wd3Vs" 
                 target="_blank"
@@ -103,9 +100,7 @@ export function Footer() {
               >
                 <FaInstagram />
               </a>
-              <a href="#" className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center text-primary hover:bg-white transition-colors shadow-sm">
-                <FaLinkedinIn />
-              </a>
+
             </div>
           </div>
 
