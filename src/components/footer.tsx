@@ -54,17 +54,17 @@ export function Footer() {
                   </button>
                 </div>
               </div>
-              <div className="mt-3 flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 rounded-xl border border-white/10 bg-white/5 p-3 sm:p-4">
+              <div className="mt-3 flex flex-row items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-4">
                 <img
                   src={lang === "de" ? twintQr : pixQr}
                   alt={lang === "de" ? "Twint QR Code" : "Pix QR Code"}
-                  className="h-20 w-20 sm:h-28 sm:w-28 rounded-xl object-contain bg-white p-1.5 sm:p-2"
+                  className="h-28 w-28 rounded-xl object-contain bg-white p-2"
                 />
-                <div className="space-y-1 text-center sm:text-left">
+                <div className="space-y-1 text-left">
                   <p className="text-sm font-semibold text-white">
                     {lang === "de" ? "Twint" : "Pix"}
                   </p>
-                  <p className="text-xs sm:text-sm text-gray-400">
+                  <p className="text-sm text-gray-400">
                     {lang === "de"
                       ? "Scannen Sie den QR-Code, um direkt zu spenden."
                       : "Escaneie o QR Code para doar diretamente."}

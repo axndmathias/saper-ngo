@@ -33,6 +33,8 @@
 | B-03 | Confirmar o texto final do evento principal, data, local e CTA. | Den finalen Text des Hauptevents, Datum, Ort und CTA bestaetigen. | Sim / Ja | pending |
 | B-04 | Revisar a lista final de imagens que realmente representam a SAPER. | Die finale Bildauswahl pruefen, die SAPER wirklich repraesentiert. | Sim / Ja | pending |
 | B-05 | Revisar a experiencia mobile para evitar cortes, excesso de espaco e desalinhamentos. | Mobile-Erlebnis pruefen, um Schnitte, zu viel Abstand und Fehlanordnungen zu vermeiden. | Nein / Nein | pending |
+| B-16 | Remover os icones de LinkedIn e Twitter do rodape. | Die LinkedIn- und Twitter-Symbole aus der Fußzeile entfernen. | Sim / Ja | done |
+| B-17 | Ajustar o layout do card Pix/Twint em dispositivos moveis para ficar mais compacto e responsivo. | Das Layout der Pix/Twint-Karte auf Mobilgeraeten kompakter und responsiver gestalten. | Sim / Ja | pending |
 ## 5. Prioridade media / Mittlere Prioritaet
 | ID | PT-BR | DE-CH | Você participa? | Status |
 | :--- | :--- | :--- | :--- | :--- |
