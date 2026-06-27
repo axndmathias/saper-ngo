@@ -1,10 +1,12 @@
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaHandHoldingHeart, FaCheckCircle, FaCopy } from "react-icons/fa";
 import saperLogo from "@/assets/saper_logo.png";
+import twintQr from "@/assets/twint-qr.svg";
+import pixQr from "@/assets/pix-qr.svg";
 import { useLang } from "@/contexts/language-context";
 import { useToast } from "@/hooks/use-toast";
 
 export function Footer() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const { toast } = useToast();
 
   const handleCopyIBAN = () => {
@@ -52,9 +54,23 @@ export function Footer() {
                   </button>
                 </div>
               </div>
-              <p className="text-gray-400 text-sm italic">
-                {t("Twint: QR-Code wird in Kürze verfügbar.", "Twint: QR-Code disponível em breve.")}
-              </p>
+              <div className="mt-3 flex flex-col sm:flex-row items-start gap-4 rounded-xl border border-white/10 bg-white/5 p-4">
+                <img
+                  src={lang === "de" ? twintQr : pixQr}
+                  alt={lang === "de" ? "Twint QR Code" : "Pix QR Code"}
+                  className="h-28 w-28 rounded-xl object-contain bg-white p-2"
+                />
+                <div className="space-y-1">
+                  <p className="text-sm font-semibold text-white">
+                    {lang === "de" ? "Twint" : "Pix"}
+                  </p>
+                  <p className="text-sm text-gray-400">
+                    {lang === "de"
+                      ? "Scannen Sie den QR-Code, um direkt zu spenden."
+                      : "Escaneie o QR Code para doar diretamente."}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

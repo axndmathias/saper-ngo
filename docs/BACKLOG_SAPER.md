@@ -48,6 +48,7 @@
 | B-12 | Planejar um admin panel simples para eventos e fotos. | Ein einfaches Admin-Panel fuer Events und Fotos planen. | Sim / Ja | pending |
 | B-13 | Planejar um backend futuro para voluntariado e newsletter. | Ein spaeteres Backend fuer Freiwillige und Newsletter planen. | Sim / Ja | pending |
 | B-14 | Avaliar automatizacao de publicacao e fluxo editorial. | Automatisierung fuer Publikation und redaktionellen Ablauf pruefen. | Sim / Ja | pending |
+| B-15 | Adicionar imagem do Twint para DE-CH e imagem do Pix para PT-BR nas seções de doação. | Ein Bild für Twint auf DE-CH und ein Bild für Pix auf PT-BR in den Spendenbereichen ergänzen. | Sim / Ja | pending |
 
 ## 7. Proximos passos sugeridos / Empfohlene naechste Schritte
 **PT-BR:** Primeiro devemos fechar conteudo, dados oficiais e selecao visual. Depois entramos em refinamentos de SEO, mobile e roadmap tecnico.
