@@ -24,6 +24,8 @@
 | DONE-06 | Atualizar a frase institucional no hero e no rodape. | Den institutionellen Satz im Hero und Footer aktualisieren. | high | done |
 | DONE-07 | Manter os botoes "Mehr erfahren / Saiba mais" e "Nächstes Event / Próximo evento" sempre lado a lado com a mesma largura, sem crescer no responsive. | Die Buttons "Mehr erfahren / Saiba mais" und "Nächstes Event / Próximo evento" immer nebeneinander mit gleicher Breite halten, ohne im Responsive-Modus zu wachsen. | high | done |
 | DONE-08 | Fazer o botao hamburger do navbar aparecer corretamente em telas pequenas. | Den Hamburger-Button der Navbar auf kleinen Bildschirmen korrekt anzeigen. | high | done |
+| B-16 | Remover os icones de LinkedIn e Twitter do rodape. | Die LinkedIn- und Twitter-Symbole aus der Fußzeile entfernen. | high | done |
+| B-17 | Ajustar o layout do card Pix/Twint: imagem QR à esquerda, texto à direita, mesmo tamanho em mobile e desktop. | Layout der Pix/Twint-Karte: QR-Bild links, Text rechts, gleiche Größe auf Mobilgeräten und Desktop. | high | done |
 
 ## 4. Prioridade alta / Hohe Prioritaet
 | ID | PT-BR | DE-CH | Você participa? | Status |
@@ -33,26 +35,52 @@
 | B-03 | Confirmar o texto final do evento principal, data, local e CTA. | Den finalen Text des Hauptevents, Datum, Ort und CTA bestaetigen. | Sim / Ja | pending |
 | B-04 | Revisar a lista final de imagens que realmente representam a SAPER. | Die finale Bildauswahl pruefen, die SAPER wirklich repraesentiert. | Sim / Ja | pending |
 | B-05 | Revisar a experiencia mobile para evitar cortes, excesso de espaco e desalinhamentos. | Mobile-Erlebnis pruefen, um Schnitte, zu viel Abstand und Fehlanordnungen zu vermeiden. | Nein / Nein | pending |
-| B-16 | Remover os icones de LinkedIn e Twitter do rodape. | Die LinkedIn- und Twitter-Symbole aus der Fußzeile entfernen. | Sim / Ja | done |
-| B-17 | Ajustar o layout do card Pix/Twint em dispositivos moveis para ficar mais compacto e responsivo. | Das Layout der Pix/Twint-Karte auf Mobilgeraeten kompakter und responsiver gestalten. | Sim / Ja | pending |
 ## 5. Prioridade media / Mittlere Prioritaet
 | ID | PT-BR | DE-CH | Você participa? | Status |
 | :--- | :--- | :--- | :--- | :--- |
 | B-07 | Definir title, description e meta tags para SEO basico. | Title, Description und Meta-Tags fuer basisches SEO definieren. | Nein / Nein | pending |
 | B-08 | Revisar se a newsletter deve ser apenas CTA ou captura real. | Pruefen, ob der Newsletter nur CTA oder echte Erfassung sein soll. | Sim / Ja | pending |
-| B-09 | Ajustar a galeria com imagens mais coerentes e menos repetitivas. | Die Galerie mit passenderen und weniger wiederholten Bildern anpassen. | Sim / Ja | pending |
+| B-09 | Migrar galeria para carregar imagens de `src/assets/gallery/` com metadados em `src/data/gallery.json` (JSON local, sem API/CMS). Fotos reais da SAPER substituem as URLs genéricas do Unsplash. | Galerie umstellen auf Bilder aus `src/assets/gallery/` mit Metadaten in `src/data/gallery.json` (lokales JSON, kein API/CMS). Echte SAPER-Fotos ersetzen generische Unsplash-URLs. | Sim / Ja | pending |
 | B-10 | Refinar a secao de depoimentos para incluir historias mais fortes. | Die Testimonials-Sektion mit staerkeren Geschichten verfeinern. | Sim / Ja | pending |
 | B-11 | Padronizar microcopy dos botoes e CTAs da landing page. | Die Microcopy der Buttons und CTAs auf der Landingpage vereinheitlichen. | Nein / Nein | pending |
 
 ## 6. Prioridade baixa / Niedrige Prioritaet
 | ID | PT-BR | DE-CH | Você participa? | Status |
 | :--- | :--- | :--- | :--- | :--- |
-| B-12 | Planejar um admin panel simples para eventos e fotos. | Ein einfaches Admin-Panel fuer Events und Fotos planen. | Sim / Ja | pending |
+| B-12 | Criar login de admin na própria landing page para upload de fotos em componentes específicos (galeria, causes, etc.). Sem backend separado — autenticação e upload embutidos na SPA. | Admin-Login auf der Landingpage selbst erstellen, um Fotos in bestimmte Komponenten hochzuladen (Galerie, Causes usw.). Kein separates Backend — Authentifizierung und Upload in der SPA integriert. | Sim / Ja | pending |
 | B-13 | Planejar um backend futuro para voluntariado e newsletter. | Ein spaeteres Backend fuer Freiwillige und Newsletter planen. | Sim / Ja | pending |
 | B-14 | Avaliar automatizacao de publicacao e fluxo editorial. | Automatisierung fuer Publikation und redaktionellen Ablauf pruefen. | Sim / Ja | pending |
 | B-15 | Adicionar imagem do Twint para DE-CH e imagem do Pix para PT-BR nas seções de doação. | Ein Bild für Twint auf DE-CH und ein Bild für Pix auf PT-BR in den Spendenbereichen ergänzen. | Sim / Ja | pending |
 
-## 7. Proximos passos sugeridos / Empfohlene naechste Schritte
-**PT-BR:** Primeiro devemos fechar conteudo, dados oficiais e selecao visual. Depois entramos em refinamentos de SEO, mobile e roadmap tecnico.
+## 7. Roadmap de implementacao / Implementierungs-Roadmap
 
-**DE-CH:** Zuerst sollten wir Inhalt, offizielle Daten und die visuelle Auswahl finalisieren. Danach gehen wir zu SEO, Mobile und technischer Roadmap ueber.
+### Fase 1 — Conteudo e dados oficiais (depende de voce)
+| ID | Descricao |
+| :--- | :--- |
+| B-01 | Fechar texto final do Hero e Sobre (PT/DE) |
+| B-02 | Validar dados oficiais do rodape (endereco, e-mail, UID, conta) |
+| B-03 | Confirmar texto, data, local e CTA do evento principal |
+| B-04 | Selecionar fotos reais que representam a SAPER |
+
+### Fase 2 — Galeria via JSON (implementacao dev)
+| ID | Descricao |
+| :--- | :--- |
+| B-09 | Criar `src/data/gallery.json` com metadados das fotos |
+| B-09 | Colocar fotos em `src/assets/gallery/` e importar via JSON |
+| B-05 | Revisar experiencia mobile apos as alteracoes |
+
+### Fase 3 — Admin upload (proxima fase do projeto)
+| ID | Descricao |
+| :--- | :--- |
+| B-12 | Criar login de admin na SPA para upload de fotos em componentes |
+| B-13 | Backend para voluntariado e newsletter |
+| B-14 | Automatizacao de publicacao e fluxo editorial |
+
+### Fase 4 — Refinamentos
+| ID | Descricao |
+| :--- | :--- |
+| B-07 | SEO basico (title, description, meta tags) |
+| B-08 | Definir modelo da newsletter (CTA ou captura real) |
+| B-10 | Refinar depoimentos com historias mais fortes |
+| B-11 | Padronizar microcopy dos botoes e CTAs |
+| B-15 | Imagem Twint para DE-CH e Pix para PT-BR nas secoes de doacao |

@@ -94,7 +94,7 @@ export function Navbar() {
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden absolute right-4 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white shadow-md backdrop-blur-sm"
+          className="md:hidden flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white shadow-md backdrop-blur-sm"
           aria-label={isMobileMenuOpen ? t("Fechar menu", "Menü schließen") : t("Abrir menu", "Menü öffnen")}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
