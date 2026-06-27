@@ -1,0 +1,8 @@
+<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="160" height="160" rx="24" fill="#F7FAFC"/>
+  <rect x="24" y="24" width="112" height="112" rx="20" fill="#0F6FFF"/>
+  <path d="M53 72C53 58.7452 63.7452 48 77 48H83C96.2548 48 107 58.7452 107 72V88C107 101.255 96.2548 112 83 112H77C63.7452 112 53 101.255 53 88V72Z" fill="white"/>
+  <path d="M63 72C63 64.268 69.268 58 77 58H83C90.732 58 97 64.268 97 72V88C97 95.732 90.732 102 83 102H77C69.268 102 63 95.732 63 88V72Z" fill="#0F6FFF"/>
+  <circle cx="80" cy="80" r="15" fill="white"/>
+  <text x="80" y="142" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#0F172A">TWINT</text>
+</svg>
