@@ -1,7 +1,7 @@
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaHandHoldingHeart, FaCheckCircle, FaCopy } from "react-icons/fa";
 import saperLogo from "@/assets/saper_logo.png";
-import twintQr from "@/assets/twint-qr.svg";
-import pixQr from "@/assets/pix-qr.svg";
+import twintQr from "@/assets/twint-qr.png";
+import pixQr from "@/assets/pix-qr.png";
 import { useLang } from "@/contexts/language-context";
 import { useToast } from "@/hooks/use-toast";
 
