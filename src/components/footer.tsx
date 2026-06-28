@@ -1,4 +1,4 @@
-import { FaFacebookF, FaInstagram, FaHandHoldingHeart, FaCheckCircle, FaCopy } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaGithub, FaHandHoldingHeart, FaCheckCircle, FaCopy } from "react-icons/fa";
 import saperLogo from "@/assets/saper_logo.png";
 import twintQr from "@/assets/twint-qr.png";
 import pixQr from "@/assets/pix-qr.png";
@@ -160,7 +160,10 @@ export function Footer() {
         <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
           <div>
             <p>{t("© 2026 Verein SAPER – A Suíça apoia projetos no Rio de Janeiro. Alle Rechte vorbehalten.", "© 2026 Associação SAPER – A Suíça apoia projetos no Rio de Janeiro. Todos os direitos reservados.")}</p>
-            <p className="text-xs mt-1 text-gray-600">{t("Entwickelt von axnd", "Desenvolvido por axnd")}</p>
+            <a href="https://github.com/axndmathias" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs mt-1 text-gray-600 hover:text-accent transition-colors">
+              <FaGithub className="text-xs" />
+              {t("Entwickelt von axnd", "Desenvolvido por axnd")}
+            </a>
           </div>
           <div className="flex gap-6">
             <a href="#datenschutz" className="hover:text-white transition-colors">{t("Datenschutz", "Privacidade")}</a>
