@@ -26,6 +26,7 @@
 | DONE-08 | Fazer o botao hamburger do navbar aparecer corretamente em telas pequenas. | Den Hamburger-Button der Navbar auf kleinen Bildschirmen korrekt anzeigen. | high | done |
 | B-16 | Remover os icones de LinkedIn e Twitter do rodape. | Die LinkedIn- und Twitter-Symbole aus der Fußzeile entfernen. | high | done |
 | B-17 | Ajustar o layout do card Pix/Twint: imagem QR à esquerda, texto à direita, mesmo tamanho em mobile e desktop. | Layout der Pix/Twint-Karte: QR-Bild links, Text rechts, gleiche Größe auf Mobilgeräten und Desktop. | high | done |
+| B-05 | Revisar a experiencia mobile para evitar cortes, excesso de espaco e desalinhamentos. | Mobile-Erlebnis pruefen, um Schnitte, zu viel Abstand und Fehlanordnungen zu vermeiden. | medium | done |
 
 ## 4. Prioridade alta / Hohe Prioritaet
 | ID | PT-BR | DE-CH | Você participa? | Status |
@@ -34,7 +35,7 @@
 | B-02 | Validar os dados oficiais do rodape: endereco, e-mail, UID e conta de doacao. | Die offiziellen Footer-Daten pruefen: Adresse, E-Mail, UID und Spendenkonto. | Sim / Ja | pending |
 | B-03 | Confirmar o texto final do evento principal, data, local e CTA. | Den finalen Text des Hauptevents, Datum, Ort und CTA bestaetigen. | Sim / Ja | pending |
 | B-04 | Revisar a lista final de imagens que realmente representam a SAPER. | Die finale Bildauswahl pruefen, die SAPER wirklich repraesentiert. | Sim / Ja | pending |
-| B-05 | Revisar a experiencia mobile para evitar cortes, excesso de espaco e desalinhamentos. | Mobile-Erlebnis pruefen, um Schnitte, zu viel Abstand und Fehlanordnungen zu vermeiden. | Nein / Nein | pending |
+
 ## 5. Prioridade media / Mittlere Prioritaet
 | ID | PT-BR | DE-CH | Você participa? | Status |
 | :--- | :--- | :--- | :--- | :--- |
@@ -67,7 +68,6 @@
 | :--- | :--- |
 | B-09 | Criar `src/data/gallery.json` com metadados das fotos |
 | B-09 | Colocar fotos em `src/assets/gallery/` e importar via JSON |
-| B-05 | Revisar experiencia mobile apos as alteracoes |
 
 ### Fase 3 — Admin upload (proxima fase do projeto)
 | ID | Descricao |
