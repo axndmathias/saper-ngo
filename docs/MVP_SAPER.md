@@ -20,8 +20,8 @@
 * **DE-CH:** `App.tsx` umschliesst die Anwendung mit `QueryClientProvider`, `LanguageProvider`, `TooltipProvider`, `WouterRouter` und `Toaster`.
 
 ### 3.2 Rotas
-* **PT-BR:** Existe rota publica para `/` e fallback para `NotFound`.
-* **DE-CH:** Es gibt eine oeffentliche Route fuer `/` und einen Fallback auf `NotFound`.
+* **PT-BR:** Rotas publicas: `/` (Home). Rotas administrativas: `/admin` (login), `/admin/dashboard`, `/admin/gallery`. Fallback para `NotFound`.
+* **DE-CH:** Oeffentliche Routen: `/` (Home). Admin-Routen: `/admin` (Login), `/admin/dashboard`, `/admin/gallery`. Fallback auf `NotFound`.
 
 ### 3.3 Base visual
 * **PT-BR:** O layout global usa tokens de tema em `src/index.css`, com tipografia definida por `Inter`, `Playfair Display` e `Caveat`.
@@ -41,14 +41,18 @@
 9. `Newsletter`
 10. `Footer`
 
-### 4.2 Responsabilidade de cada componente
+### 4.2 Paginas administrativas
+* **PT-BR:** As paginas de admin sao rotas separadas (`/admin/*`) com autenticacao via `AuthContext`. O dashboard lista todos os componentes gerenciáveis. Cada componente tem sua propria pagina de CRUD.
+* **DE-CH:** Die Admin-Seiten sind separate Routen (`/admin/*`) mit Authentifizierung ueber `AuthContext`. Das Dashboard listet alle verwaltbaren Komponenten. Jede Komponente hat ihre eigene CRUD-Seite.
+
+### 4.3 Responsabilidade de cada componente
 * **Navbar:** navegação, idioma, Instagram e CTA.
 * **Hero:** mensagem principal e chamada inicial.
 * **Events:** bloco de evento fixo com data, local e CTA.
 * **About:** apresentacao institucional e tres pilares.
 * **Causes:** cards horizontais com quatro areas de impacto.
 * **FeaturedCampaign:** formulario de voluntariado.
-* **Gallery:** mosaico visual responsivo.
+* **Gallery:** mosaico visual responsivo com 6 fotos visiveis e botao "Ver Mais" que expande ate 12. Dados vindos de localStorage com fallback para defaults hardcoded.
 * **Testimonials:** prova social em cards.
 * **Newsletter:** CTA simples de contato.
 * **Footer:** doacao, links institucionais e legal.
@@ -92,8 +96,8 @@
 * **DE-CH:** Die Kopieraktion nutzt `navigator.clipboard.writeText`.
 
 ### 5.5 Conteudo visual
-* **PT-BR:** As imagens da pagina sao majoritariamente externas e otimizadas via URLs publicas.
-* **DE-CH:** Die Bilder der Seite sind groesstenteils extern und ueber oeffentliche URLs eingebunden.
+* **PT-BR:** As imagens da pagina sao majoritariamente externas e otimizadas via URLs publicas. A galeria agora le os dados de localStorage via hook `useGalleryData`, com fallback para defaults hardcoded.
+* **DE-CH:** Die Bilder der Seite sind groesstenteils extern und ueber oeffentliche URLs eingebunden. Die Galerie liest Daten jetzt aus localStorage via `useGalleryData`-Hook, mit Fallback auf hardcodierte Defaults.
 
 * **PT-BR:** Os blocos usam `motion` para animacoes de entrada e hover.
 * **DE-CH:** Die Bloecke verwenden `motion` fuer Einblend- und Hover-Animationen.
@@ -102,11 +106,11 @@
 * **PT-BR:** O site nao depende de backend para o conteudo atual.
 * **DE-CH:** Die Website haengt fuer den aktuellen Inhalt nicht von einem Backend ab.
 
-* **PT-BR:** Evento, pilares, depoimentos, roles do formulario e galerias estao codificados diretamente nos componentes.
-* **DE-CH:** Event, Schwerpunkte, Testimonials, Formular-Rollen und Galerie sind direkt in den Komponenten codiert.
+* **PT-BR:** Evento, pilares, depoimentos e roles do formulario estao codificados diretamente nos componentes. A galeria agora le de localStorage com fallback hardcoded.
+* **DE-CH:** Event, Schwerpunkte, Testimonials und Formular-Rollen sind direkt in den Komponenten codiert. Die Galerie liest jetzt aus localStorage mit hardcodiertem Fallback.
 
-* **PT-BR:** Isso deixa o deploy simples, mas exige edicao de codigo para atualizar conteudo.
-* **DE-CH:** Das macht das Deployment einfach, erfordert aber Codeaenderungen fuer Inhaltsupdates.
+* **PT-BR:** Componentes gerenciados via admin usam localStorage como fonte primaria, com fallback para defaults hardcoded. Isso permite edicao via interface sem backend.
+* **DE-CH:** Ueber Admin verwaltete Komponenten nutzen localStorage als primaere Quelle, mit Fallback auf hardcodierte Defaults. Das ermoeglicht Bearbeitung per UI ohne Backend.
 
 ## 7. Componentes por arquivo / Komponenten nach Datei
 | Arquivo | Funcao |
@@ -117,7 +121,14 @@
 | `src/components/about.tsx` | Missao e tres pilares sociais |
 | `src/components/causes.tsx` | Quatro cards de causas |
 | `src/components/featured-campaign.tsx` | Formulario de voluntariado com toast |
-| `src/components/gallery.tsx` | Mosaico de imagens responsivo |
+| `src/components/gallery.tsx` | Mosaico de imagens responsivo com localStorage + fallback |
+| `src/pages/admin-login.tsx` | Login protegido /admin com toggle DE/PT |
+| `src/pages/admin-dashboard.tsx` | Dashboard admin com grid de componentes |
+| `src/pages/admin-gallery.tsx` | CRUD visual da galeria de fotos |
+| `src/contexts/auth-context.tsx` | Autenticacao admin via localStorage |
+| `src/hooks/use-gallery-data.ts` | Hook de dados da galeria (localStorage + defaults) |
+| `src/data/gallery-defaults.ts` | Valores padrao da galeria (7 fotos) |
+| `src/types/gallery.ts` | Tipos da galeria |
 | `src/components/testimonials.tsx` | Cards de depoimentos |
 | `src/components/newsletter.tsx` | CTA de contato por e-mail |
 | `src/components/footer.tsx` | Doacao, legal e links institucionais |
@@ -142,15 +153,15 @@
 * **PT-BR:** Nao existe persistencia remota para voluntarios ou newsletter.
 * **DE-CH:** Es gibt keine entfernte Persistenz fuer Freiwillige oder Newsletter.
 
-* **PT-BR:** A galeria e os depoimentos sao conteudo estatico.
-* **DE-CH:** Galerie und Testimonials sind statische Inhalte.
+* **PT-BR:** Os depoimentos sao conteudo estatico. A galeria agora e gerenciável via admin CRUD.
+* **DE-CH:** Testimonials sind statische Inhalte. Die Galerie ist jetzt ueber Admin-CRUD verwaltbar.
 
 * **PT-BR:** A copia da IBAN e o feedback de voluntariado sao apenas interacoes locais.
 * **DE-CH:** IBAN-Kopie und Freiwilligen-Feedback sind nur lokale Interaktionen.
 
 ## 10. Roadmap tecnica / Technische Roadmap
-* **PT-BR:** Um admin panel pode ser adicionado depois para gerenciar eventos e fotos.
-* **DE-CH:** Ein Admin-Panel kann spaeter hinzugefuegt werden, um Events und Fotos zu verwalten.
+* **PT-BR:** Admin panel implementado: autenticacao, dashboard e CRUD da galeria em producao. Proximos componentes a serem adicionados: eventos, causas, depoimentos, hero, footer.
+* **DE-CH:** Admin-Panel implementiert: Authentifizierung, Dashboard und Galerie-CRUD in Produktion. Naechste Komponenten: Events, Causes, Testimonials, Hero, Footer.
 
 * **PT-BR:** Um backend pode ser introduzido para persistir formulario de voluntariado e newsletter.
 * **DE-CH:** Ein Backend kann spaeter eingefuehrt werden, um Freiwilligen- und Newsletter-Formulare zu speichern.

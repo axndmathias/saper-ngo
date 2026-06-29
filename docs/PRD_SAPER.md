@@ -64,8 +64,8 @@
 * **DE-CH:** Formular mit Name, E-Mail, Telefon, gewuenschter Rolle und verpflichtender Einwilligung.
 
 ### 4.7 Galeria
-* **PT-BR:** Mosaico visual responsivo com imagens de apoio e CTA final.
-* **DE-CH:** Responsives visuelles Mosaik mit Support-Bildern und abschliessendem CTA.
+* **PT-BR:** Mosaico visual responsivo com 6 fotos visiveis, botao "Ver Mais" expande o grid ate 12 fotos. A primeira foto (Social) comeca oculta atras do botao. Admin gerencia fotos via CRUD.
+* **DE-CH:** Responsives visuelles Mosaik mit 6 sichtbaren Fotos, Button "Mehr anzeigen" erweitert das Grid auf bis zu 12 Fotos. Das erste Foto (Social) beginnt versteckt hinter dem Button. Admin verwaltet Fotos via CRUD.
 
 ### 4.8 Depoimentos
 * **PT-BR:** Tres depoimentos para reforcar confianca e validacao social.
@@ -74,6 +74,10 @@
 ### 4.9 Newsletter / Contato
 * **PT-BR:** Captura simples de interesse por e-mail como CTA de contato.
 * **DE-CH:** Einfache E-Mail-Interessenabfrage als Kontakt-CTA.
+
+### 4.11 Admin
+* **PT-BR:** Sistema de administracao embutido na SPA: login protegido (/admin), dashboard com grid de componentes, CRUD visual por secao. Toggle DE/PT disponivel.
+* **DE-CH:** In die SPA integriertes Admin-System: geschuetzter Login (/admin), Dashboard mit Komponenten-Grid, visuelles CRUD pro Bereich. DE/PT-Umschalter verfuegbar.
 
 ### 4.10 Rodape
 * **PT-BR:** Transparencia de doacoes, IBAN, links institucionais e blocos legais.
@@ -89,6 +93,11 @@
 | RF-05 | Reforcar prova social com depoimentos e imagens. | Soziale Glaubwuerdigkeit mit Testimonials und Bildern staerken. |
 | RF-06 | Exibir informacao de doacao com transparencia. | Spendeninformationen mit Transparenz anzeigen. |
 | RF-07 | Manter o rodape legal acessivel e visivel. | Den rechtlichen Footer sichtbar und zugänglich halten. |
+| RF-08 | Autenticar admin com login/senha via localStorage. | Admin mit Login/Passwort via localStorage authentifizieren. |
+| RF-09 | Exibir dashboard admin com grid de componentes gerenciáveis. | Admin-Dashboard mit Grid verwaltbarer Komponenten anzeigen. |
+| RF-10 | CRUD visual da galeria de fotos com limite de 12. | Visuelles CRUD fuer Fotogalerie mit Limit von 12. |
+| RF-11 | Exibir 6 fotos na galeria com botao "Ver Mais" para expandir. | 6 Fotos in der Galerie anzeigen mit "Mehr anzeigen"-Button zum Erweitern. |
+| RF-12 | Alternar idioma DE/PT no admin. | Sprache DE/PT im Admin umschalten. |
 
 ## 6. Requisitos de conteudo / Inhaltsanforderungen
 * **PT-BR:** O texto deve existir em PT e DE para as areas visiveis da pagina.
@@ -109,10 +118,7 @@
 * **RN-06:** Instagram, Google Maps e links legais sao canais oficiais e devem ser mantidos.
 
 ## 8. Fora de escopo / Ausserhalb des Scopes
-* **PT-BR:** Painel administrativo, CMS e edicao direta de conteudo via interface.
-* **DE-CH:** Administrationspanel, CMS und Inhaltsbearbeitung per UI.
-
-* **PT-BR:** Login de usuario, area privada e workflow editorial.
+* **PT-BR:** Login de usuario publico, area privada e workflow editorial.
 * **DE-CH:** Benutzer-Login, privater Bereich und redaktioneller Workflow.
 
 * **PT-BR:** Backend transacional para pagamentos, doacoes online ou automacoes complexas.
