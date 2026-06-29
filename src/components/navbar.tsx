@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { FaBars, FaTimes, FaInstagram } from "react-icons/fa";
+import { FaBars, FaTimes, FaInstagram, FaCog } from "react-icons/fa";
 import saperLogo from "@/assets/saper_logo.png";
 import { useLang } from "@/contexts/language-context";
 
@@ -85,6 +85,14 @@ export function Navbar() {
           </a>
 
           <a
+            href="/admin"
+            className="text-white hover:text-accent transition-all text-xl"
+            title="Admin"
+          >
+            <FaCog />
+          </a>
+
+          <a
             href="#donate"
             className="bg-accent text-accent-foreground px-6 py-2 rounded-md font-bold text-sm hover:bg-white hover:text-primary transition-colors"
           >
@@ -138,6 +146,15 @@ export function Navbar() {
             className="text-white hover:text-accent transition-all text-2xl mt-2"
           >
             <FaInstagram />
+          </a>
+
+          <a
+            href="/admin"
+            className="text-white hover:text-accent transition-all text-2xl mt-2"
+            onClick={() => setIsMobileMenuOpen(false)}
+            title="Admin"
+          >
+            <FaCog />
           </a>
 
           <a

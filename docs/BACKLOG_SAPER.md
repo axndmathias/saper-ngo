@@ -41,7 +41,8 @@
 | :--- | :--- | :--- | :--- | :--- |
 | B-07 | Definir title, description e meta tags para SEO basico. | Title, Description und Meta-Tags fuer basisches SEO definieren. | Nein / Nein | pending |
 | B-08 | Revisar se a newsletter deve ser apenas CTA ou captura real. | Pruefen, ob der Newsletter nur CTA oder echte Erfassung sein soll. | Sim / Ja | pending |
-| B-09 | Migrar galeria para carregar imagens de `src/assets/gallery/` com metadados em `src/data/gallery.json` (JSON local, sem API/CMS). Fotos reais da SAPER substituem as URLs genéricas do Unsplash. | Galerie umstellen auf Bilder aus `src/assets/gallery/` mit Metadaten in `src/data/gallery.json` (lokales JSON, kein API/CMS). Echte SAPER-Fotos ersetzen generische Unsplash-URLs. | Sim / Ja | pending |
+| B-09 | (Substituído pelo admin offline-first — ver seção Admin) | — | Sim / Ja | cancelled |
+| B-18 | Adicionar icone de admin no navbar que leva para /admin. | Admin-Symbol in der Navbar hinzufügen, das zu /admin führt. | Nein / Nein | in_progress |
 | B-10 | Refinar a secao de depoimentos para incluir historias mais fortes. | Die Testimonials-Sektion mit staerkeren Geschichten verfeinern. | Sim / Ja | pending |
 | B-11 | Padronizar microcopy dos botoes e CTAs da landing page. | Die Microcopy der Buttons und CTAs auf der Landingpage vereinheitlichen. | Nein / Nein | pending |
 
@@ -63,18 +64,27 @@
 | B-03 | Confirmar texto, data, local e CTA do evento principal |
 | B-04 | Selecionar fotos reais que representam a SAPER |
 
-### Fase 2 — Galeria via JSON (implementacao dev)
+### Fase 2 — Admin offline-first (sistema completo)
 | ID | Descricao |
 | :--- | :--- |
-| B-09 | Criar `src/data/gallery.json` com metadados das fotos |
-| B-09 | Colocar fotos em `src/assets/gallery/` e importar via JSON |
+| B-18 | Adicionar icone de admin no navbar (link para /admin) |
+| B-19 | Criar base do admin: types, defaults, storage (localStorage), useAdminData |
+| B-20 | Criar tela de login (/admin) com senha simples |
+| B-21 | Criar dashboard admin com sidebar (navegacao por componente) |
+| B-22 | CRUD visual de Eventos (adicionar, editar, excluir, reordenar) |
+| B-23 | CRUD visual da Galeria de fotos |
+| B-24 | CRUD visual de Causas |
+| B-25 | CRUD visual de Depoimentos |
+| B-26 | Editar Hero (texto PT/DE, imagem) |
+| B-27 | Editar Footer (endereco, email, UID, conta, redes sociais) |
+| B-28 | Botao "Baixar dados" para exportar JSONs para publicacao |
 
-### Fase 3 — Admin upload (proxima fase do projeto)
+### Fase 3 — Persistencia e publicacao
 | ID | Descricao |
 | :--- | :--- |
-| B-12 | Criar login de admin na SPA para upload de fotos em componentes |
-| B-13 | Backend para voluntariado e newsletter |
-| B-14 | Automatizacao de publicacao e fluxo editorial |
+| B-13 | Salvar dados no repositorio via GitHub API (login OAuth) |
+| B-14 | Automatizar deploy ao salvar dados no repositorio |
+| B-12 | (Futuro) Upload de fotos direto do admin com preview |
 
 ### Fase 4 — Refinamentos
 | ID | Descricao |
