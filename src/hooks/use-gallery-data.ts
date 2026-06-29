@@ -2,22 +2,42 @@ import { useCallback, useEffect, useState } from "react";
 import type { GalleryItem } from "@/types/gallery";
 import { GALLERY_DEFAULTS } from "@/data/gallery-defaults";
 
-const STORAGE_KEY = "saper-gallery";
+const STORAGE_KEY_ADMIN = "saper-gallery";
+const STORAGE_KEY_CACHE = "saper-gallery-cache";
 const MAX_ITEMS = 12;
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 
-function loadGallery(): GalleryItem[] {
+function loadFromStorage(key: string): GalleryItem[] | null {
   try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      const parsed = JSON.parse(stored) as GalleryItem[];
-      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-    }
+    const raw = localStorage.getItem(key);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as GalleryItem[];
+    if (Array.isArray(parsed) && parsed.length > 0) return parsed;
   } catch { /* ignore */ }
-  return [...GALLERY_DEFAULTS];
+  return null;
 }
 
-function saveGallery(items: GalleryItem[]) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+function saveToStorage(key: string, items: GalleryItem[]) {
+  localStorage.setItem(key, JSON.stringify(items));
+}
+
+function loadGallery(): GalleryItem[] {
+  return loadFromStorage(STORAGE_KEY_ADMIN) ?? loadFromStorage(STORAGE_KEY_CACHE) ?? [...GALLERY_DEFAULTS];
+}
+
+export async function fetchPublishedGallery(): Promise<GalleryItem[] | null> {
+  try {
+    const res = await fetch(`${BASE}/data/gallery.json`);
+    if (!res.ok) return null;
+    const data = (await res.json()) as GalleryItem[];
+    if (Array.isArray(data) && data.length > 0) {
+      saveToStorage(STORAGE_KEY_CACHE, data);
+      return data;
+    }
+    return null;
+  } catch {
+    return null;
+  }
 }
 
 export function useGalleryData() {
@@ -26,7 +46,7 @@ export function useGalleryData() {
 
   useEffect(() => {
     if (isDirty) {
-      saveGallery(items);
+      saveToStorage(STORAGE_KEY_ADMIN, items);
       setIsDirty(false);
     }
   }, [items, isDirty]);

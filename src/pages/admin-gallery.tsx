@@ -3,10 +3,12 @@ import { useLocation } from "wouter";
 import { useAuth } from "@/contexts/auth-context";
 import { useLang } from "@/contexts/language-context";
 import { useGalleryData } from "@/hooks/use-gallery-data";
-import { FaArrowUp, FaArrowDown, FaPlus, FaEdit, FaTrash, FaArrowLeft, FaLink, FaUpload } from "react-icons/fa";
+import { commitFiles, loadGitHubConfig, saveGitHubConfig, clearGitHubConfig, type GitHubConfig } from "@/lib/github-api";
+import { FaArrowUp, FaArrowDown, FaPlus, FaEdit, FaTrash, FaArrowLeft, FaLink, FaUpload, FaCog, FaRocket, FaCheckCircle, FaExclamationCircle, FaSpinner } from "react-icons/fa";
 
-type ModalMode = "add" | "edit" | null;
+type ModalMode = "add" | "edit" | "config" | null;
 type InputMode = "url" | "upload";
+type PublishStatus = "idle" | "publishing" | "success" | "error";
 
 export default function AdminGallery() {
   const { isAuthenticated } = useAuth();
@@ -24,6 +26,12 @@ export default function AdminGallery() {
   const [altDe, setAltDe] = useState("");
   const [altPt, setAltPt] = useState("");
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+
+  const [publishStatus, setPublishStatus] = useState<PublishStatus>("idle");
+  const [publishMessage, setPublishMessage] = useState("");
+
+  const [gitToken, setGitToken] = useState("");
+  const [gitTokenSaved, setGitTokenSaved] = useState(false);
 
   if (!isAuthenticated) {
     setLocation("/admin");
@@ -88,6 +96,63 @@ export default function AdminGallery() {
     setDeleteConfirm(null);
   };
 
+  const handleSaveConfig = () => {
+    if (!gitToken.trim()) return;
+    saveGitHubConfig({ token: gitToken.trim(), owner: "axndmathias", repo: "saper-ngo", branch: "main" });
+    setGitTokenSaved(true);
+  };
+
+  const handleClearConfig = () => {
+    clearGitHubConfig();
+    setGitToken("");
+    setGitTokenSaved(false);
+  };
+
+  const handlePublish = async () => {
+    const config = loadGitHubConfig();
+    if (!config) {
+      setPublishMessage(t("GitHub-Token nicht konfiguriert.", "Token GitHub não configurado."));
+      setPublishStatus("error");
+      return;
+    }
+    if (items.length === 0) return;
+
+    setPublishStatus("publishing");
+    setPublishMessage(t("Veröffentlichung läuft...", "Publicando..."));
+
+    try {
+      const files: { path: string; content: string; encoding: "base64" | "utf-8" }[] = [];
+
+      const publishedItems = items.map((item) => {
+        if (item.src.startsWith("data:")) {
+          const base64Data = item.src.split(",")[1];
+          const ext = item.src.startsWith("data:image/png") ? "png" : "jpg";
+          files.push({
+            path: `public/uploads/gallery/${item.id}.${ext}`,
+            content: base64Data,
+            encoding: "base64",
+          });
+          return { ...item, src: `/saper-ngo/uploads/gallery/${item.id}.${ext}` };
+        }
+        return item;
+      });
+
+      files.push({
+        path: "public/data/gallery.json",
+        content: JSON.stringify(publishedItems, null, 2),
+        encoding: "utf-8",
+      });
+
+      await commitFiles(config, files, "B-23: publish gallery data");
+
+      setPublishMessage(t("Veröffentlicht! Das Deployment wird in 1-2 Minuten abgeschlossen.", "Publicado! A implantação será concluída em 1-2 minutos."));
+      setPublishStatus("success");
+    } catch (err) {
+      setPublishMessage(err instanceof Error ? err.message : t("Unbekannter Fehler", "Erro desconhecido"));
+      setPublishStatus("error");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-primary">
       <div className="border-b border-white/10">
@@ -101,15 +166,53 @@ export default function AdminGallery() {
             </button>
             <h1 className="text-white text-xl font-bold">{t("Galerie verwalten", "Gerenciar Galeria")}</h1>
           </div>
-          <button
-            onClick={openAdd}
-            disabled={!items.length || items.length >= 12}
-            className="flex items-center gap-2 bg-accent text-accent-foreground px-4 py-2 rounded-lg font-bold text-sm hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
-          >
-            <FaPlus /> {t("Hinzufügen", "Adicionar")}
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => { setGitToken(""); setGitTokenSaved(false); setModal("config"); }}
+              className="text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10"
+              title={t("GitHub Einstellungen", "Configurações GitHub")}
+            >
+              <FaCog />
+            </button>
+            <button
+              onClick={handlePublish}
+              disabled={publishStatus === "publishing"}
+              className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg font-bold text-sm hover:bg-green-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              {publishStatus === "publishing" ? <FaSpinner className="animate-spin" /> : <FaRocket />}
+              {t("Veröffentlichen", "Publicar")}
+            </button>
+            <button
+              onClick={openAdd}
+              disabled={!items.length || items.length >= 12}
+              className="flex items-center gap-2 bg-accent text-accent-foreground px-4 py-2 rounded-lg font-bold text-sm hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              <FaPlus /> {t("Hinzufügen", "Adicionar")}
+            </button>
+          </div>
         </div>
       </div>
+
+      {publishStatus !== "idle" && (
+        <div className={`border-b px-4 md:px-6 py-3 flex items-center gap-3 text-sm ${
+          publishStatus === "publishing" ? "border-blue-500/30 bg-blue-500/10 text-blue-300" :
+          publishStatus === "success" ? "border-green-500/30 bg-green-500/10 text-green-300" :
+          "border-red-500/30 bg-red-500/10 text-red-300"
+        }`}>
+          {publishStatus === "publishing" && <FaSpinner className="animate-spin shrink-0" />}
+          {publishStatus === "success" && <FaCheckCircle className="shrink-0" />}
+          {publishStatus === "error" && <FaExclamationCircle className="shrink-0" />}
+          <span className="flex-1">{publishMessage}</span>
+          {(publishStatus === "success" || publishStatus === "error") && (
+            <button
+              onClick={() => setPublishStatus("idle")}
+              className="text-white/60 hover:text-white transition-colors"
+            >
+              ✕
+            </button>
+          )}
+        </div>
+      )}
 
       <div className="container mx-auto px-4 md:px-6 py-8">
         {items.length === 0 && (
@@ -322,6 +425,57 @@ export default function AdminGallery() {
               >
                 {t("Löschen", "Excluir")}
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {modal === "config" && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+          <div className="bg-primary border border-white/10 rounded-xl w-full max-w-md p-6">
+            <h2 className="text-white text-lg font-bold mb-4">{t("GitHub Einstellungen", "Configurações GitHub")}</h2>
+            <p className="text-gray-400 text-sm mb-4">
+              {t("Gib dein GitHub Personal Access Token ein, um Bilder und Daten direkt ins Repository zu veröffentlichen.", "Insira seu GitHub Personal Access Token para publicar imagens e dados diretamente no repositório.")}
+            </p>
+            <p className="text-gray-500 text-xs mb-4">
+              {t("Token erstellen: GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic). Benötigt 'repo'-Scope.", "Criar token: GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic). Necessita escopo 'repo'.")}
+            </p>
+            <div className="space-y-4">
+              <input
+                type="password"
+                value={gitToken}
+                onChange={(e) => setGitToken(e.target.value)}
+                placeholder="ghp_..."
+                className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-accent/50"
+              />
+            </div>
+            {gitTokenSaved && (
+              <p className="text-green-400 text-xs mt-2 flex items-center gap-1">
+                <FaCheckCircle /> {t("Token gespeichert", "Token salvo")}
+              </p>
+            )}
+            <div className="flex justify-between items-center mt-6">
+              <button
+                onClick={handleClearConfig}
+                className="text-red-400 hover:text-red-300 transition-colors text-sm"
+              >
+                {t("Token löschen", "Limpar token")}
+              </button>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => { setModal(null); setGitToken(""); }}
+                  className="text-gray-400 hover:text-white transition-colors px-4 py-2"
+                >
+                  {t("Schliessen", "Fechar")}
+                </button>
+                <button
+                  onClick={handleSaveConfig}
+                  disabled={!gitToken.trim()}
+                  className="bg-accent text-accent-foreground px-6 py-2 rounded-lg font-bold hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                  {t("Speichern", "Salvar")}
+                </button>
+              </div>
             </div>
           </div>
         </div>
