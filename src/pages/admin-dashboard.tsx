@@ -33,7 +33,7 @@ export default function AdminDashboard() {
 
   const handleLogout = () => {
     logout();
-    setLocation("/admin");
+    setLocation("/");
   };
 
   return (
