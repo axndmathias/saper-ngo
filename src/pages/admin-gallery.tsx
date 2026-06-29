@@ -1,21 +1,26 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useLocation } from "wouter";
 import { useAuth } from "@/contexts/auth-context";
 import { useLang } from "@/contexts/language-context";
 import { useGalleryData } from "@/hooks/use-gallery-data";
-import { FaArrowUp, FaArrowDown, FaPlus, FaEdit, FaTrash, FaArrowLeft } from "react-icons/fa";
+import { FaArrowUp, FaArrowDown, FaPlus, FaEdit, FaTrash, FaArrowLeft, FaLink, FaUpload } from "react-icons/fa";
 
 type ModalMode = "add" | "edit" | null;
+type InputMode = "url" | "upload";
 
 export default function AdminGallery() {
   const { isAuthenticated } = useAuth();
   const { lang, t } = useLang();
   const [, setLocation] = useLocation();
   const { items, add, update, remove, moveUp, moveDown } = useGalleryData();
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [modal, setModal] = useState<ModalMode>(null);
   const [editId, setEditId] = useState<string | null>(null);
+  const [inputMode, setInputMode] = useState<InputMode>("url");
   const [src, setSrc] = useState("");
+  const [filePreview, setFilePreview] = useState<string | null>(null);
+  const [fileName, setFileName] = useState("");
   const [altDe, setAltDe] = useState("");
   const [altPt, setAltPt] = useState("");
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
@@ -25,33 +30,57 @@ export default function AdminGallery() {
     return null;
   }
 
-  const openAdd = () => {
+  const resetModal = () => {
     setSrc("");
+    setFilePreview(null);
+    setFileName("");
     setAltDe("");
     setAltPt("");
     setEditId(null);
+    setInputMode("url");
+    setModal(null);
+  };
+
+  const openAdd = () => {
+    resetModal();
     setModal("add");
   };
 
   const openEdit = (id: string) => {
     const item = items.find((i) => i.id === id);
     if (!item) return;
-    setSrc(item.src);
+    const isDataUrl = item.src.startsWith("data:");
+    setSrc(isDataUrl ? "" : item.src);
+    setFilePreview(isDataUrl ? item.src : null);
+    setFileName(isDataUrl ? t("Hochgeladenes Bild", "Imagem enviada") : "");
+    setInputMode(isDataUrl ? "upload" : "url");
     setAltDe(item.altDe);
     setAltPt(item.altPt);
     setEditId(id);
     setModal("edit");
   };
 
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setFileName(file.name);
+    const reader = new FileReader();
+    reader.onload = () => {
+      setFilePreview(reader.result as string);
+      setSrc(reader.result as string);
+    };
+    reader.readAsDataURL(file);
+  };
+
   const handleSave = () => {
-    if (!src.trim() || !altDe.trim() || !altPt.trim()) return;
+    const finalSrc = src.trim();
+    if (!finalSrc || !altDe.trim() || !altPt.trim()) return;
     if (modal === "add") {
-      add(src.trim(), altDe.trim(), altPt.trim());
+      add(finalSrc, altDe.trim(), altPt.trim());
     } else if (modal === "edit" && editId) {
-      update(editId, { src: src.trim(), altDe: altDe.trim(), altPt: altPt.trim() });
+      update(editId, { src: finalSrc, altDe: altDe.trim(), altPt: altPt.trim() });
     }
-    setModal(null);
-    setEditId(null);
+    resetModal();
   };
 
   const handleDelete = (id: string) => {
@@ -166,16 +195,72 @@ export default function AdminGallery() {
             </h2>
 
             <div className="space-y-4">
-              <div>
-                <label className="text-gray-400 text-sm block mb-1">{t("Bild-URL", "URL da imagem")}</label>
-                <input
-                  type="text"
-                  value={src}
-                  onChange={(e) => setSrc(e.target.value)}
-                  placeholder="https://..."
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-accent/50"
-                />
+              <div className="flex gap-1 bg-white/5 rounded-lg p-1">
+                <button
+                  type="button"
+                  onClick={() => { setInputMode("url"); setSrc(""); setFilePreview(null); setFileName(""); }}
+                  className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${inputMode === "url" ? "bg-accent text-accent-foreground" : "text-gray-400 hover:text-white"}`}
+                >
+                  <FaLink /> {t("URL", "URL")}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setInputMode("upload"); setSrc(""); setFilePreview(null); setFileName(""); }}
+                  className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${inputMode === "upload" ? "bg-accent text-accent-foreground" : "text-gray-400 hover:text-white"}`}
+                >
+                  <FaUpload /> {t("Hochladen", "Upload")}
+                </button>
               </div>
+
+              {inputMode === "url" ? (
+                <div>
+                  <label className="text-gray-400 text-sm block mb-1">{t("Bild-URL", "URL da imagem")}</label>
+                  <input
+                    type="text"
+                    value={src}
+                    onChange={(e) => setSrc(e.target.value)}
+                    placeholder="https://..."
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-accent/50"
+                  />
+                </div>
+              ) : (
+                <div>
+                  <label className="text-gray-400 text-sm block mb-1">{t("Bild hochladen", "Enviar imagem")}</label>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileSelect}
+                    className="hidden"
+                  />
+                  {!filePreview ? (
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      className="w-full border-2 border-dashed border-white/10 rounded-lg p-8 flex flex-col items-center gap-2 text-gray-400 hover:border-accent/50 hover:text-accent transition-colors"
+                    >
+                      <FaUpload className="text-2xl" />
+                      <span className="text-sm">{t("Klicken zum Auswählen", "Clique para selecionar")}</span>
+                    </button>
+                  ) : (
+                    <div className="relative">
+                      <img
+                        src={filePreview}
+                        alt="Preview"
+                        className="w-full h-40 object-cover rounded-lg"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => { setFilePreview(null); setSrc(""); setFileName(""); }}
+                        className="absolute top-2 right-2 bg-black/60 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-black/80 transition-colors"
+                      >
+                        ✕
+                      </button>
+                      <p className="text-gray-500 text-xs mt-1 truncate">{fileName}</p>
+                    </div>
+                  )}
+                </div>
+              )}
               <div>
                 <label className="text-gray-400 text-sm block mb-1">{t("Alt-Text (Deutsch)", "Texto alternativo (Alemão)")}</label>
                 <input
@@ -207,7 +292,7 @@ export default function AdminGallery() {
               </button>
               <button
                 onClick={handleSave}
-                disabled={!src.trim() || !altDe.trim() || !altPt.trim()}
+                disabled={(inputMode === "url" ? !src.trim() : !filePreview) || !altDe.trim() || !altPt.trim()}
                 className="bg-accent text-accent-foreground px-6 py-2 rounded-lg font-bold hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {t("Speichern", "Salvar")}
