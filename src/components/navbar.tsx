@@ -84,13 +84,13 @@ export function Navbar() {
             <FaInstagram />
           </a>
 
-          <a
+          <Link
             href="/admin"
             className="text-white hover:text-accent transition-all text-xl"
             title="Admin"
           >
             <FaCog />
-          </a>
+          </Link>
 
           <a
             href="#donate"
@@ -148,14 +148,14 @@ export function Navbar() {
             <FaInstagram />
           </a>
 
-          <a
+          <Link
             href="/admin"
             className="text-white hover:text-accent transition-all text-2xl mt-2"
             onClick={() => setIsMobileMenuOpen(false)}
             title="Admin"
           >
             <FaCog />
-          </a>
+          </Link>
 
           <a
             href="#donate"
