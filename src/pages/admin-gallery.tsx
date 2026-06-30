@@ -2,7 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import { useLocation } from "wouter";
 import { useAuth } from "@/contexts/auth-context";
 import { useLang } from "@/contexts/language-context";
-import { useGalleryData, isDirty, loadPublishedIntoAdmin, fetchPublishedGallery, getAdminGallery } from "@/hooks/use-gallery-data";
+import type { GalleryItem } from "@/types/gallery";
+import { useGalleryData, isDirty, loadPublishedIntoAdmin, fetchPublishedGallery, getAdminGallery, jsonHash } from "@/hooks/use-gallery-data";
 import { commitFiles, loadGitHubConfig, saveGitHubConfig, clearGitHubConfig, type GitHubConfig } from "@/lib/github-api";
 import { FaArrowUp, FaArrowDown, FaPlus, FaEdit, FaTrash, FaArrowLeft, FaLink, FaUpload, FaCog, FaRocket, FaCheckCircle, FaExclamationCircle, FaSpinner, FaCloudDownloadAlt, FaExclamationTriangle, FaSyncAlt } from "react-icons/fa";
 
@@ -16,7 +17,7 @@ export default function AdminGallery() {
   const [, setLocation] = useLocation();
   const { items, add, update, remove, moveUp, moveDown, replaceAll, markPublished } = useGalleryData();
   const [dirty, setDirty] = useState(true);
-  const [lastPublishedCount, setLastPublishedCount] = useState(0);
+  const [publishedItems, setPublishedItems] = useState<GalleryItem[] | null>(null);
   const [syncing, setSyncing] = useState(true);
   useEffect(() => {
     setDirty(isDirty(items));
@@ -25,15 +26,14 @@ export default function AdminGallery() {
   useEffect(() => {
     const init = async () => {
       const existing = getAdminGallery();
+      const published = await fetchPublishedGallery();
+      setPublishedItems(published);
+
       if (!existing) {
-        const result = await loadPublishedIntoAdmin();
-        if (result) {
-          replaceAll(result.items);
-          setLastPublishedCount(result.items.length);
+        if (published) {
+          replaceAll(published);
         }
       } else {
-        const data = await fetchPublishedGallery();
-        if (data) setLastPublishedCount(data.length);
         setDirty(isDirty(items));
       }
       setSyncing(false);
@@ -199,7 +199,7 @@ export default function AdminGallery() {
                 {t("Nicht veröffentlicht", "Não publicado")}
               </span>
             )}
-            {!dirty && lastPublishedCount > 0 && (
+            {!dirty && publishedItems && (
               <span className="hidden sm:flex items-center gap-1.5 text-xs text-green-400 bg-green-400/10 border border-green-400/20 rounded-full px-3 py-1.5">
                 <FaCheckCircle size={10} />
                 {t("Veröffentlicht", "Publicado")}
@@ -212,7 +212,7 @@ export default function AdminGallery() {
                 const result = await loadPublishedIntoAdmin();
                 if (result) {
                   replaceAll(result.items);
-                  setLastPublishedCount(result.items.length);
+                  setPublishedItems(result.items);
                   setPublishMessage(t("Veröffentlichte Daten geladen.", "Dados publicados carregados."));
                   setPublishStatus("success");
                 } else {
@@ -255,6 +255,26 @@ export default function AdminGallery() {
         <div className="border-b border-blue-500/30 bg-blue-500/10 text-blue-300 px-4 md:px-6 py-3 flex items-center gap-3 text-sm">
           <FaSpinner className="animate-spin shrink-0" />
           <span>{t("Synchronisiere mit veröffentlichten Daten...", "Sincronizando com dados publicados...")}</span>
+        </div>
+      )}
+
+      {!syncing && publishedItems && jsonHash(publishedItems) !== jsonHash(items) && publishStatus === "idle" && (
+        <div className="border-b border-purple-500/30 bg-purple-500/10 text-purple-300 px-4 md:px-6 py-3 flex items-center gap-3 text-sm">
+          <FaSyncAlt className="shrink-0" />
+          <span className="flex-1">
+            {t("Neuere veröffentlichte Daten verfügbar.", "Novos dados publicados disponíveis.")}
+          </span>
+          <button
+            onClick={async () => {
+              setSyncing(true);
+              const result = await loadPublishedIntoAdmin();
+              if (result) replaceAll(result.items);
+              setSyncing(false);
+            }}
+            className="bg-purple-500/20 hover:bg-purple-500/30 border border-purple-400/30 px-3 py-1 rounded-md text-xs font-bold transition-colors"
+          >
+            {t("Laden", "Carregar")}
+          </button>
         </div>
       )}
 
