@@ -115,7 +115,7 @@ export function Navbar() {
             DE
           </button>
           <button
-            className="flex h-11 w-11 items-center justify-center rounded-full bg-primary/90 text-white shadow-md"
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-white/20 text-white shadow-md backdrop-blur-sm border border-white/25"
             aria-label={isMobileMenuOpen ? t("Fechar menu", "Menü schließen") : t("Abrir menu", "Menü öffnen")}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
