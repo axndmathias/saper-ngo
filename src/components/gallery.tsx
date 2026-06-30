@@ -22,9 +22,23 @@ export function Gallery() {
   const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
-    fetchPublishedGallery().then((data) => {
-      if (data) setItems(data);
-    });
+    let cancelled = false;
+    let retryCount = 0;
+    const maxRetries = 3;
+
+    const doFetch = async () => {
+      const data = await fetchPublishedGallery();
+      if (cancelled) return;
+      if (data) {
+        setItems(data);
+      } else if (retryCount < maxRetries) {
+        retryCount++;
+        setTimeout(doFetch, 2000 * retryCount);
+      }
+    };
+
+    doFetch();
+    return () => { cancelled = true; };
   }, []);
 
   const displayed = showAll ? items : items.slice(0, INITIAL_VISIBLE);
@@ -67,16 +81,14 @@ export function Gallery() {
           ))}
         </div>
 
-        {hasMore && (
-          <div className="mt-16 text-center">
-            <button
-              onClick={() => setShowAll((prev) => !prev)}
-              className="bg-transparent border-2 border-primary text-primary px-8 py-3 rounded font-bold hover:bg-primary hover:text-primary-foreground transition-colors uppercase tracking-wider"
-            >
-              {showAll ? t("Weniger anzeigen", "Ver Menos") : t("Mehr anzeigen", "Ver Mais")}
-            </button>
-          </div>
-        )}
+        <div className={`mt-16 text-center ${hasMore ? '' : 'hidden'}`}>
+          <button
+            onClick={() => setShowAll((prev) => !prev)}
+            className="bg-transparent border-2 border-primary text-primary px-8 py-3 rounded font-bold hover:bg-primary hover:text-primary-foreground transition-colors uppercase tracking-wider"
+          >
+            {showAll ? t("Weniger anzeigen", "Ver Menos") : t("Mehr anzeigen", "Ver Mais")}
+          </button>
+        </div>
 
       </div>
     </section>
