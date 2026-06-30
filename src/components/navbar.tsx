@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { FaBars, FaTimes, FaInstagram, FaCog } from "react-icons/fa";
+import { FaInstagram, FaCog } from "react-icons/fa";
 import saperLogo from "@/assets/saper_logo.png";
 import { useLang } from "@/contexts/language-context";
 
@@ -115,11 +115,13 @@ export function Navbar() {
             DE
           </button>
           <button
-            className="flex h-11 w-11 items-center justify-center rounded-full bg-white/20 text-white shadow-md border border-white/25"
+            className="group flex h-11 w-11 flex-col items-center justify-center gap-[4px] rounded-full bg-white/20 text-white shadow-md border border-white/25"
             aria-label={isMobileMenuOpen ? t("Fechar menu", "Menü schließen") : t("Abrir menu", "Menü öffnen")}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+            <span className={`block h-[2.5px] w-5 rounded-full bg-white transition-all duration-200 ${isMobileMenuOpen ? "translate-y-[6.5px] rotate-45" : ""}`} />
+            <span className={`block h-[2.5px] w-5 rounded-full bg-white transition-all duration-200 ${isMobileMenuOpen ? "opacity-0" : ""}`} />
+            <span className={`block h-[2.5px] w-5 rounded-full bg-white transition-all duration-200 ${isMobileMenuOpen ? "-translate-y-[6.5px] -rotate-45" : ""}`} />
           </button>
         </div>
       </div>
