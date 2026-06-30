@@ -6,7 +6,7 @@ export function About() {
   const { t } = useLang();
 
   return (
-    <section className="py-20 bg-secondary" id="about">
+    <section className="py-20 bg-secondary overflow-x-hidden" id="about">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <motion.div
@@ -92,8 +92,7 @@ export function About() {
               <div className="absolute inset-0 bg-primary/10 mix-blend-multiply" />
             </div>
             
-            {/* Decorative block */}
-            <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-accent rounded-2xl -z-10" />
+            {/* Decorative outline */}
             <div className="absolute -top-10 -right-10 w-48 h-48 border-4 border-accent rounded-2xl -z-10 opacity-30" />
           </motion.div>
         </div>
