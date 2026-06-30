@@ -2,21 +2,24 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useLang } from "@/contexts/language-context";
 import type { GalleryItem } from "@/types/gallery";
-import { useGalleryData, fetchPublishedGallery } from "@/hooks/use-gallery-data";
+import { fetchPublishedGallery, getAdminGallery } from "@/hooks/use-gallery-data";
+import { GALLERY_DEFAULTS } from "@/data/gallery-defaults";
 
 const INITIAL_VISIBLE = 6;
 
 export function Gallery() {
   const { t, lang } = useLang();
-  const { items: localItems } = useGalleryData();
-  const [published, setPublished] = useState<GalleryItem[] | null>(null);
+  const [items, setItems] = useState<GalleryItem[]>(() => {
+    return getAdminGallery() ?? [...GALLERY_DEFAULTS];
+  });
   const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
-    fetchPublishedGallery().then((data) => setPublished(data));
+    if (getAdminGallery()) return;
+    fetchPublishedGallery().then((data) => {
+      if (data) setItems(data);
+    });
   }, []);
-
-  const items = published ?? localItems;
 
   const displayed = showAll ? items : items.slice(0, INITIAL_VISIBLE);
   const hasMore = items.length > INITIAL_VISIBLE;

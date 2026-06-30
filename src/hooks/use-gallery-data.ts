@@ -4,6 +4,7 @@ import { GALLERY_DEFAULTS } from "@/data/gallery-defaults";
 
 const STORAGE_KEY_ADMIN = "saper-gallery";
 const STORAGE_KEY_CACHE = "saper-gallery-cache";
+const STORAGE_KEY_PUBLISHED_HASH = "saper-gallery-published-hash";
 const MAX_ITEMS = 12;
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 
@@ -22,12 +23,46 @@ function saveToStorage(key: string, items: GalleryItem[]) {
 }
 
 function loadGallery(): GalleryItem[] {
-  return loadFromStorage(STORAGE_KEY_ADMIN) ?? loadFromStorage(STORAGE_KEY_CACHE) ?? [...GALLERY_DEFAULTS];
+  const admin = loadFromStorage(STORAGE_KEY_ADMIN);
+  if (admin) return admin;
+  const cache = loadFromStorage(STORAGE_KEY_CACHE);
+  if (cache) return cache;
+  return [...GALLERY_DEFAULTS];
+}
+
+export function jsonHash(items: GalleryItem[]): string {
+  const normalised = items.map(({ id, src, altDe, altPt, order }) => ({ id, src, altDe, altPt, order }));
+  return JSON.stringify(normalised);
+}
+
+export function getAdminGallery(): GalleryItem[] | null {
+  return loadFromStorage(STORAGE_KEY_ADMIN);
+}
+
+export function getPublishedHash(): string | null {
+  try {
+    return localStorage.getItem(STORAGE_KEY_PUBLISHED_HASH);
+  } catch {
+    return null;
+  }
+}
+
+export function setPublishedHash(items: GalleryItem[]) {
+  try {
+    localStorage.setItem(STORAGE_KEY_PUBLISHED_HASH, jsonHash(items));
+  } catch { /* ignore */ }
+}
+
+export function isDirty(items: GalleryItem[]): boolean {
+  const hash = getPublishedHash();
+  if (!hash) return true;
+  return hash !== jsonHash(items);
 }
 
 export async function fetchPublishedGallery(): Promise<GalleryItem[] | null> {
   try {
-    const res = await fetch(`${BASE}/data/gallery.json`);
+    const ts = Date.now();
+    const res = await fetch(`${BASE}/data/gallery.json?t=${ts}`);
     if (!res.ok) return null;
     const data = (await res.json()) as GalleryItem[];
     if (Array.isArray(data) && data.length > 0) {
@@ -38,6 +73,14 @@ export async function fetchPublishedGallery(): Promise<GalleryItem[] | null> {
   } catch {
     return null;
   }
+}
+
+export async function loadPublishedIntoAdmin(): Promise<{ items: GalleryItem[] } | null> {
+  const data = await fetchPublishedGallery();
+  if (!data) return null;
+  saveToStorage(STORAGE_KEY_ADMIN, data);
+  setPublishedHash(data);
+  return { items: data };
 }
 
 export function useGalleryData() {
@@ -114,6 +157,16 @@ export function useGalleryData() {
     setIsDirty(true);
   }, []);
 
+  const replaceAll = useCallback((newItems: GalleryItem[]) => {
+    setItems(newItems);
+    saveToStorage(STORAGE_KEY_ADMIN, newItems);
+    setIsDirty(false);
+  }, []);
+
+  const markPublished = useCallback(() => {
+    setPublishedHash(items);
+  }, [items]);
+
   return {
     items: sorted,
     visibleItems,
@@ -125,5 +178,7 @@ export function useGalleryData() {
     moveUp,
     moveDown,
     reset,
+    replaceAll,
+    markPublished,
   };
 }

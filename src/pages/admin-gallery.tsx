@@ -1,10 +1,10 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useLocation } from "wouter";
 import { useAuth } from "@/contexts/auth-context";
 import { useLang } from "@/contexts/language-context";
-import { useGalleryData } from "@/hooks/use-gallery-data";
+import { useGalleryData, isDirty, loadPublishedIntoAdmin, fetchPublishedGallery, getAdminGallery } from "@/hooks/use-gallery-data";
 import { commitFiles, loadGitHubConfig, saveGitHubConfig, clearGitHubConfig, type GitHubConfig } from "@/lib/github-api";
-import { FaArrowUp, FaArrowDown, FaPlus, FaEdit, FaTrash, FaArrowLeft, FaLink, FaUpload, FaCog, FaRocket, FaCheckCircle, FaExclamationCircle, FaSpinner } from "react-icons/fa";
+import { FaArrowUp, FaArrowDown, FaPlus, FaEdit, FaTrash, FaArrowLeft, FaLink, FaUpload, FaCog, FaRocket, FaCheckCircle, FaExclamationCircle, FaSpinner, FaCloudDownloadAlt, FaExclamationTriangle, FaSyncAlt } from "react-icons/fa";
 
 type ModalMode = "add" | "edit" | "config" | null;
 type InputMode = "url" | "upload";
@@ -14,7 +14,32 @@ export default function AdminGallery() {
   const { isAuthenticated } = useAuth();
   const { lang, t } = useLang();
   const [, setLocation] = useLocation();
-  const { items, add, update, remove, moveUp, moveDown } = useGalleryData();
+  const { items, add, update, remove, moveUp, moveDown, replaceAll, markPublished } = useGalleryData();
+  const [dirty, setDirty] = useState(true);
+  const [lastPublishedCount, setLastPublishedCount] = useState(0);
+  const [syncing, setSyncing] = useState(true);
+  useEffect(() => {
+    setDirty(isDirty(items));
+  }, [items]);
+
+  useEffect(() => {
+    const init = async () => {
+      const existing = getAdminGallery();
+      if (!existing) {
+        const result = await loadPublishedIntoAdmin();
+        if (result) {
+          replaceAll(result.items);
+          setLastPublishedCount(result.items.length);
+        }
+      } else {
+        const data = await fetchPublishedGallery();
+        if (data) setLastPublishedCount(data.length);
+        setDirty(isDirty(items));
+      }
+      setSyncing(false);
+    };
+    init();
+  }, []);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [modal, setModal] = useState<ModalMode>(null);
@@ -145,6 +170,7 @@ export default function AdminGallery() {
 
       await commitFiles(config, files, "B-23: publish gallery data");
 
+      markPublished();
       setPublishMessage(t("Veröffentlicht! Das Deployment wird in 1-2 Minuten abgeschlossen.", "Publicado! A implantação será concluída em 1-2 minutos."));
       setPublishStatus("success");
     } catch (err) {
@@ -167,6 +193,38 @@ export default function AdminGallery() {
             <h1 className="text-white text-xl font-bold">{t("Galerie verwalten", "Gerenciar Galeria")}</h1>
           </div>
           <div className="flex items-center gap-2">
+            {dirty && (
+              <span className="hidden sm:flex items-center gap-1.5 text-xs text-amber-400 bg-amber-400/10 border border-amber-400/20 rounded-full px-3 py-1.5">
+                <FaExclamationTriangle size={10} />
+                {t("Nicht veröffentlicht", "Não publicado")}
+              </span>
+            )}
+            {!dirty && lastPublishedCount > 0 && (
+              <span className="hidden sm:flex items-center gap-1.5 text-xs text-green-400 bg-green-400/10 border border-green-400/20 rounded-full px-3 py-1.5">
+                <FaCheckCircle size={10} />
+                {t("Veröffentlicht", "Publicado")}
+              </span>
+            )}
+            <button
+              onClick={async () => {
+                setPublishStatus("publishing");
+                setPublishMessage(t("Lade veröffentlichte Daten...", "Carregando dados publicados..."));
+                const result = await loadPublishedIntoAdmin();
+                if (result) {
+                  replaceAll(result.items);
+                  setLastPublishedCount(result.items.length);
+                  setPublishMessage(t("Veröffentlichte Daten geladen.", "Dados publicados carregados."));
+                  setPublishStatus("success");
+                } else {
+                  setPublishMessage(t("Keine veröffentlichten Daten gefunden.", "Nenhum dado publicado encontrado."));
+                  setPublishStatus("error");
+                }
+              }}
+              className="text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10"
+              title={t("Veröffentlichte Daten laden", "Carregar dados publicados")}
+            >
+              <FaCloudDownloadAlt />
+            </button>
             <button
               onClick={() => { setGitToken(""); setGitTokenSaved(false); setModal("config"); }}
               className="text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10"
@@ -193,7 +251,14 @@ export default function AdminGallery() {
         </div>
       </div>
 
-      {publishStatus !== "idle" && (
+      {syncing && (
+        <div className="border-b border-blue-500/30 bg-blue-500/10 text-blue-300 px-4 md:px-6 py-3 flex items-center gap-3 text-sm">
+          <FaSpinner className="animate-spin shrink-0" />
+          <span>{t("Synchronisiere mit veröffentlichten Daten...", "Sincronizando com dados publicados...")}</span>
+        </div>
+      )}
+
+      {!syncing && publishStatus !== "idle" && (
         <div className={`border-b px-4 md:px-6 py-3 flex items-center gap-3 text-sm ${
           publishStatus === "publishing" ? "border-blue-500/30 bg-blue-500/10 text-blue-300" :
           publishStatus === "success" ? "border-green-500/30 bg-green-500/10 text-green-300" :
