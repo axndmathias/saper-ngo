@@ -5,7 +5,7 @@ import { useLang } from "@/contexts/language-context";
 import type { GalleryItem } from "@/types/gallery";
 import { useGalleryData, isDirty, loadPublishedIntoAdmin, fetchPublishedGallery, getAdminGallery, jsonHash } from "@/hooks/use-gallery-data";
 import { commitFiles, loadGitHubConfig, saveGitHubConfig, clearGitHubConfig, type GitHubConfig } from "@/lib/github-api";
-import { FaArrowUp, FaArrowDown, FaPlus, FaEdit, FaTrash, FaArrowLeft, FaLink, FaUpload, FaCog, FaRocket, FaCheckCircle, FaExclamationCircle, FaSpinner, FaCloudDownloadAlt, FaExclamationTriangle, FaSyncAlt } from "react-icons/fa";
+import { FaArrowUp, FaArrowDown, FaPlus, FaEdit, FaTrash, FaArrowLeft, FaLink, FaUpload, FaCog, FaSave, FaCheckCircle, FaExclamationCircle, FaSpinner, FaCloudDownloadAlt, FaExclamationTriangle, FaSyncAlt } from "react-icons/fa";
 
 type ModalMode = "add" | "edit" | "config" | null;
 type InputMode = "url" | "upload";
@@ -238,17 +238,18 @@ export default function AdminGallery() {
             <button
               onClick={handlePublish}
               disabled={publishStatus === "publishing"}
-              className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg font-bold text-sm hover:bg-green-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="flex items-center justify-center bg-green-600 text-white w-9 h-9 rounded-lg text-sm hover:bg-green-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              title={t("Veröffentlichen", "Publicar")}
             >
-              {publishStatus === "publishing" ? <FaSpinner className="animate-spin" /> : <FaRocket />}
-              {t("Veröffentlichen", "Publicar")}
+              {publishStatus === "publishing" ? <FaSpinner className="animate-spin" /> : <FaSave />}
             </button>
             <button
               onClick={openAdd}
               disabled={!items.length || items.length >= 12}
-              className="flex items-center gap-2 bg-accent text-accent-foreground px-4 py-2 rounded-lg font-bold text-sm hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
+              className="flex items-center justify-center bg-accent text-accent-foreground w-9 h-9 rounded-lg text-sm hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
+              title={t("Hinzufügen", "Adicionar")}
             >
-              <FaPlus /> {t("Hinzufügen", "Adicionar")}
+              <FaPlus />
             </button>
           </div>
         </div>
