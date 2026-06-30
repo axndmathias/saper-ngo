@@ -97,8 +97,8 @@ export async function fetchPublishedGallery(): Promise<GalleryItem[] | null> {
 
     if (Array.isArray(data) && data.length > 0) {
       const cachedVersion = getPublishedVersion();
+      saveToStorage(STORAGE_KEY_CACHE, data);
       if (version > cachedVersion) {
-        saveToStorage(STORAGE_KEY_CACHE, data);
         savePublishedVersion(version);
       }
       return data;

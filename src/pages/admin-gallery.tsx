@@ -291,10 +291,34 @@ export default function AdminGallery() {
           {publishStatus === "success" && <FaCheckCircle className="shrink-0" />}
           {publishStatus === "error" && <FaExclamationCircle className="shrink-0" />}
           <span className="flex-1">{publishMessage}</span>
-          {(publishStatus === "success" || publishStatus === "error") && (
+          {publishStatus === "success" && (
+            <>
+              <button
+                onClick={async () => {
+                  setPublishStatus("publishing");
+                  setPublishMessage(t("Überprüfe Deployment...", "Verificando implantação..."));
+                  for (let i = 0; i < 12; i++) {
+                    await new Promise((r) => setTimeout(r, 5000));
+                    const data = await fetchPublishedGallery();
+                    if (data) {
+                      setPublishMessage(t("Live! Die Daten sind jetzt öffentlich.", "Live! Os dados agora estão públicos."));
+                      setPublishStatus("success");
+                      return;
+                    }
+                  }
+                  setPublishMessage(t("Zeitüberschreitung. Bitte aktualisieren und erneut prüfen.", "Tempo esgotado. Atualize e verifique novamente."));
+                  setPublishStatus("error");
+                }}
+                className="bg-green-500/20 hover:bg-green-500/30 border border-green-400/30 px-3 py-1 rounded-md text-xs font-bold transition-colors"
+              >
+                {t("Prüfen", "Verificar")}
+              </button>
+            </>
+          )}
+          {(publishStatus === "error" || publishStatus === "success") && (
             <button
               onClick={() => setPublishStatus("idle")}
-              className="text-white/60 hover:text-white transition-colors"
+              className="text-white/60 hover:text-white transition-colors ml-1"
             >
               ✕
             </button>
