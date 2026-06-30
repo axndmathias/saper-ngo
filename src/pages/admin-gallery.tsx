@@ -185,17 +185,17 @@ export default function AdminGallery() {
   return (
     <div className="min-h-screen bg-primary">
       <div className="border-b border-white/10">
-        <div className="container mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
+        <div className="container mx-auto px-4 md:px-6 py-3 md:py-4 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 min-w-0">
             <button
               onClick={() => setLocation("/admin/dashboard")}
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-400 hover:text-white transition-colors shrink-0"
             >
               <FaArrowLeft />
             </button>
-            <h1 className="text-white text-xl font-bold">{t("Galerie verwalten", "Gerenciar Galeria")}</h1>
+            <h1 className="text-white text-base md:text-xl font-bold truncate">{t("Galerie verwalten", "Gerenciar Galeria")}</h1>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 md:gap-2 shrink-0">
             {dirty && (
               <span className="hidden sm:flex items-center gap-1.5 text-xs text-amber-400 bg-amber-400/10 border border-amber-400/20 rounded-full px-3 py-1.5">
                 <FaExclamationTriangle size={10} />
