@@ -2,33 +2,27 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useLang } from "@/contexts/language-context";
 import type { GalleryItem } from "@/types/gallery";
-import { fetchPublishedGallery, getAdminGallery } from "@/hooks/use-gallery-data";
-import { GALLERY_DEFAULTS } from "@/data/gallery-defaults";
+import { fetchPublishedGallery } from "@/hooks/use-gallery-data";
 import type { GalleryItem } from "@/types/gallery";
 
 const STORAGE_KEY_CACHE = "saper-gallery-cache";
 const INITIAL_VISIBLE = 6;
 
-function loadCachedOrDefault(): GalleryItem[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY_CACHE);
-    if (raw) {
-      const parsed = JSON.parse(raw) as GalleryItem[];
-      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-    }
-  } catch { /* ignore */ }
-  return [...GALLERY_DEFAULTS];
-}
-
 export function Gallery() {
   const { t, lang } = useLang();
   const [items, setItems] = useState<GalleryItem[]>(() => {
-    return getAdminGallery() ?? loadCachedOrDefault();
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY_CACHE);
+      if (raw) {
+        const parsed = JSON.parse(raw) as GalleryItem[];
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch { /* ignore */ }
+    return [];
   });
   const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
-    if (getAdminGallery()) return;
     fetchPublishedGallery().then((data) => {
       if (data) setItems(data);
     });
