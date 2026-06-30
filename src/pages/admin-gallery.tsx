@@ -162,14 +162,17 @@ export default function AdminGallery() {
         return item;
       });
 
+      const currentVersion = parseInt(localStorage.getItem("saper-gallery-published-version") ?? "0", 10);
+      const newVersion = currentVersion + 1;
       files.push({
         path: "public/data/gallery.json",
-        content: JSON.stringify(publishedItems, null, 2),
+        content: JSON.stringify({ items: publishedItems, version: newVersion }, null, 2),
         encoding: "utf-8",
       });
 
-      await commitFiles(config, files, "B-23: publish gallery data");
+      await commitFiles(config, files, `B-23: publish gallery data (v${newVersion})`);
 
+      localStorage.setItem("saper-gallery-published-version", String(newVersion));
       markPublished();
       setPublishMessage(t("Veröffentlicht! Das Deployment wird in 1-2 Minuten abgeschlossen.", "Publicado! A implantação será concluída em 1-2 minutos."));
       setPublishStatus("success");

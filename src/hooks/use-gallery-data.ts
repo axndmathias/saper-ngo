@@ -5,8 +5,11 @@ import { GALLERY_DEFAULTS } from "@/data/gallery-defaults";
 const STORAGE_KEY_ADMIN = "saper-gallery";
 const STORAGE_KEY_CACHE = "saper-gallery-cache";
 const STORAGE_KEY_PUBLISHED_HASH = "saper-gallery-published-hash";
+const STORAGE_KEY_PUBLISHED_VERSION = "saper-gallery-published-version";
 const MAX_ITEMS = 12;
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+export type GalleryData = { items: GalleryItem[]; version: number };
 
 function loadFromStorage(key: string): GalleryItem[] | null {
   try {
@@ -59,14 +62,45 @@ export function isDirty(items: GalleryItem[]): boolean {
   return hash !== jsonHash(items);
 }
 
+function getPublishedVersion(): number {
+  try {
+    return parseInt(localStorage.getItem(STORAGE_KEY_PUBLISHED_VERSION) ?? "0", 10);
+  } catch {
+    return 0;
+  }
+}
+
+function savePublishedVersion(version: number) {
+  try {
+    localStorage.setItem(STORAGE_KEY_PUBLISHED_VERSION, String(version));
+  } catch { /* ignore */ }
+}
+
 export async function fetchPublishedGallery(): Promise<GalleryItem[] | null> {
   try {
     const ts = Date.now();
     const res = await fetch(`${BASE}/data/gallery.json?t=${ts}`);
     if (!res.ok) return null;
-    const data = (await res.json()) as GalleryItem[];
+    const raw: unknown = await res.json();
+    let data: GalleryItem[];
+    let version = getPublishedVersion();
+
+    if (Array.isArray(raw)) {
+      data = raw as GalleryItem[];
+    } else if (raw && typeof raw === "object" && "items" in raw) {
+      const wrapped = raw as GalleryData;
+      data = wrapped.items;
+      version = wrapped.version;
+    } else {
+      return null;
+    }
+
     if (Array.isArray(data) && data.length > 0) {
-      saveToStorage(STORAGE_KEY_CACHE, data);
+      const cachedVersion = getPublishedVersion();
+      if (version > cachedVersion) {
+        saveToStorage(STORAGE_KEY_CACHE, data);
+        savePublishedVersion(version);
+      }
       return data;
     }
     return null;
