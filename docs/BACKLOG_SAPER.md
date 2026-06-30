@@ -35,6 +35,7 @@
 | B-17 | Ajustar layout do card Pix/Twint: imagem QR a esquerda, texto a direita, mesmo tamanho em mobile e desktop. | Layout der Pix/Twint-Karte: QR-Bild links, Text rechts, gleiche Groesse auf Mobilgeraeten und Desktop. | high | done |
 | B-18 | Adicionar icone de admin no navbar que leva para /admin. | Admin-Symbol in der Navbar hinzufuegen, das zu /admin fuehrt. | medium | done |
 | B-05 | Revisar a experiencia mobile para evitar cortes, excesso de espaco e desalinhamentos. | Mobile-Erlebnis pruefen, um Schnitte, zu viel Abstand und Fehlanordnungen zu vermeiden. | medium | done |
+| DONE-17 | Adicionar toggle DE/PT visivel sempre no mobile (fora do menu hamburguer). | DE/PT-Umschalter auf Mobilgeraeten immer sichtbar machen (ausserhalb des Hamburger-Menus). | medium | done |
 
 ## 4. Prioridade alta / Hohe Prioritaet
 | ID | PT-BR | DE-CH | Voce participa? | Status |
