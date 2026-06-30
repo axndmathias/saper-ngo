@@ -100,20 +100,8 @@ export function Navbar() {
           </a>
         </div>
 
-        {/* Mobile: Language Toggle + Hamburger */}
-        <div className="md:hidden flex items-center gap-2">
-          <button
-            onClick={() => setLang("pt")}
-            className={`rounded-md px-2 py-0.5 text-xs font-bold transition-colors ${lang === "pt" ? "bg-accent text-accent-foreground" : "bg-transparent text-white hover:bg-white/10"}`}
-          >
-            PT
-          </button>
-          <button
-            onClick={() => setLang("de")}
-            className={`rounded-md px-2 py-0.5 text-xs font-bold transition-colors ${lang === "de" ? "bg-accent text-accent-foreground" : "bg-transparent text-white hover:bg-white/10"}`}
-          >
-            DE
-          </button>
+        {/* Mobile: Hamburger */}
+        <div className="md:hidden flex items-center">
           <button
             className="group flex h-11 w-11 flex-col items-center justify-center gap-[4px] rounded-full bg-white/20 text-white shadow-md border border-white/25"
             aria-label={isMobileMenuOpen ? t("Fechar menu", "Menü schließen") : t("Abrir menu", "Menü öffnen")}
