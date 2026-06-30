@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { useLang } from "@/contexts/language-context";
 import type { GalleryItem } from "@/types/gallery";
 import { fetchPublishedGallery } from "@/hooks/use-gallery-data";
-import type { GalleryItem } from "@/types/gallery";
 
 const STORAGE_KEY_CACHE = "saper-gallery-cache";
 const INITIAL_VISIBLE = 6;
