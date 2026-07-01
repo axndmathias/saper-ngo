@@ -8,7 +8,7 @@ import { commitFiles, loadGitHubConfig, saveGitHubConfig, clearGitHubConfig, typ
 import { compressImage } from "@/lib/image-utils";
 import { FaArrowUp, FaArrowDown, FaPlus, FaEdit, FaTrash, FaArrowLeft, FaLink, FaUpload, FaCog, FaSave, FaCheckCircle, FaExclamationCircle, FaSpinner, FaCloudDownloadAlt, FaExclamationTriangle, FaSyncAlt } from "react-icons/fa";
 
-type ModalMode = "add" | "edit" | "config" | null;
+type ModalMode = "add" | "edit" | null;
 type InputMode = "url" | "upload";
 type PublishStatus = "idle" | "publishing" | "success" | "error";
 
@@ -59,6 +59,12 @@ export default function AdminGallery() {
 
   const [gitToken, setGitToken] = useState("");
   const [gitTokenSaved, setGitTokenSaved] = useState(false);
+  const [showTokenConfig, setShowTokenConfig] = useState(false);
+  const [tokenConfigured, setTokenConfigured] = useState(false);
+
+  useEffect(() => {
+    setTokenConfigured(loadGitHubConfig() !== null);
+  }, []);
 
   if (!isAuthenticated) {
     setLocation("/admin");
@@ -138,12 +144,15 @@ export default function AdminGallery() {
     if (!gitToken.trim()) return;
     saveGitHubConfig({ token: gitToken.trim(), owner: "axndmathias", repo: "saper-ngo", branch: "main" });
     setGitTokenSaved(true);
+    setTokenConfigured(true);
+    setGitToken("");
   };
 
   const handleClearConfig = () => {
     clearGitHubConfig();
     setGitToken("");
     setGitTokenSaved(false);
+    setTokenConfigured(false);
   };
 
   const handlePublish = async () => {
@@ -242,11 +251,14 @@ export default function AdminGallery() {
               <FaCloudDownloadAlt />
             </button>
             <button
-              onClick={() => { setGitToken(""); setGitTokenSaved(false); setModal("config"); }}
-              className="text-gray-400 hover:text-white transition-colors p-2 rounded-md hover:bg-white/10"
-              title={t("GitHub Einstellungen", "Configurações GitHub")}
+              onClick={() => setShowTokenConfig(!showTokenConfig)}
+              className={`relative text-gray-400 hover:text-white transition-colors p-2 rounded-md hover:bg-white/10 ${showTokenConfig ? "bg-white/10 text-white" : ""}`}
+              title={t("GitHub Token einrichten", "Configurar token GitHub")}
             >
               <FaCog />
+              {tokenConfigured && (
+                <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-green-500 rounded-full border border-primary" />
+              )}
             </button>
             <button
               onClick={handlePublish}
@@ -559,53 +571,80 @@ export default function AdminGallery() {
         </div>
       )}
 
-      {modal === "config" && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-          <div className="bg-primary border border-white/10 rounded-md w-full max-w-md p-6">
-            <h2 className="text-white text-lg font-bold mb-4">{t("GitHub Einstellungen", "Configurações GitHub")}</h2>
-            <p className="text-gray-400 text-sm mb-4">
-              {t("Gib dein GitHub Personal Access Token ein, um Bilder und Daten direkt ins Repository zu veröffentlichen.", "Insira seu GitHub Personal Access Token para publicar imagens e dados diretamente no repositório.")}
-            </p>
-            <p className="text-gray-500 text-xs mb-4">
-              {t("Token erstellen: GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic). Benötigt 'repo'-Scope.", "Criar token: GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic). Necessita escopo 'repo'.")}
-            </p>
-            <div className="space-y-4">
-              <input
-                type="password"
-                value={gitToken}
-                onChange={(e) => setGitToken(e.target.value)}
-                placeholder="ghp_..."
-                className="w-full bg-white/5 border border-white/10 rounded-md px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-accent/50"
-              />
-            </div>
-            {gitTokenSaved && (
-              <p className="text-green-400 text-xs mt-2 flex items-center gap-1">
-                <FaCheckCircle /> {t("Token gespeichert", "Token salvo")}
-              </p>
-            )}
-            <div className="flex justify-between items-center mt-6">
+      {showTokenConfig && (
+        <div className="border-b border-white/10 bg-white/[0.02]">
+          <div className="container mx-auto px-4 md:px-6 py-5 space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <FaCog className="text-gray-400 text-sm" />
+                <span className="text-white text-sm font-semibold">
+                  {t("GitHub Token", "Token GitHub")}
+                </span>
+                {tokenConfigured ? (
+                  <span className="flex items-center gap-1 text-green-400 text-xs">
+                    <FaCheckCircle size={10} />
+                    {t("Konfiguriert", "Configurado")}
+                  </span>
+                ) : (
+                  <span className="flex items-center gap-1 text-amber-400 text-xs">
+                    <FaExclamationTriangle size={10} />
+                    {t("Nicht konfiguriert", "Não configurado")}
+                  </span>
+                )}
+              </div>
               <button
-                onClick={handleClearConfig}
-                className="text-red-400 hover:text-red-300 transition-colors text-sm"
+                onClick={() => setShowTokenConfig(false)}
+                className="text-gray-500 hover:text-white transition-colors text-xs"
               >
-                {t("Token löschen", "Limpar token")}
+                ✕
               </button>
-              <div className="flex gap-3">
-                <button
-                  onClick={() => { setModal(null); setGitToken(""); }}
-                  className="text-gray-400 hover:text-white transition-colors px-4 py-2"
-                >
-                  {t("Schliessen", "Fechar")}
-                </button>
+            </div>
+
+            <div className="text-gray-500 text-xs leading-relaxed">
+              {t(
+                "Der Token ist nötig, um Bilder und Daten direkt ins GitHub-Repository zu veröffentlichen.",
+                "O token é necessário para publicar imagens e dados diretamente no repositório do GitHub."
+              )}
+              <br />
+              {t(
+                "Erstelle einen Token unter GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic) mit dem Scope 'repo'.",
+                "Crie um token em GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic) com o escopo 'repo'."
+              )}
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-2">
+              <div className="flex-1">
+                <input
+                  type="password"
+                  value={gitToken}
+                  onChange={(e) => setGitToken(e.target.value)}
+                  placeholder={t("Token hier einfügen", "Cole o token aqui")}
+                  className="w-full bg-white/5 border border-white/10 rounded-md px-3 py-2.5 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-accent/50"
+                />
+              </div>
+              <div className="flex gap-2">
                 <button
                   onClick={handleSaveConfig}
                   disabled={!gitToken.trim()}
-                  className="bg-accent text-accent-foreground px-6 py-2 rounded-md font-bold hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="bg-accent text-accent-foreground px-5 py-2.5 rounded-md text-sm font-bold hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   {t("Speichern", "Salvar")}
                 </button>
+                <button
+                  onClick={handleClearConfig}
+                  disabled={!tokenConfigured}
+                  className="bg-red-500/10 text-red-400 border border-red-500/20 px-4 py-2.5 rounded-md text-sm font-bold hover:bg-red-500/20 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  {t("Löschen", "Limpar")}
+                </button>
               </div>
             </div>
+
+            {gitTokenSaved && (
+              <p className="text-green-400 text-xs flex items-center gap-1">
+                <FaCheckCircle /> {t("Token gespeichert!", "Token salvo!")}
+              </p>
+            )}
           </div>
         </div>
       )}
