@@ -141,7 +141,7 @@ export function FeaturedCampaign() {
 
               <Button
                 type="submit"
-                className="w-full bg-accent text-accent-foreground hover:bg-accent/90 py-6 text-lg font-bold"
+                className="flex h-14 w-full items-center justify-center bg-accent text-accent-foreground hover:bg-accent/90 px-4 sm:px-8 rounded-md font-bold whitespace-nowrap"
                 disabled={!formData.consent}
               >
                 {t("Anmeldung senden", "Enviar inscrição")}
