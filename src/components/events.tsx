@@ -85,13 +85,13 @@ export function Events() {
                 href={eventData.google_maps_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 flex h-14 items-center justify-center bg-accent text-accent-foreground px-4 sm:px-8 rounded-md font-bold text-center whitespace-nowrap hover:bg-accent/90 transition-colors"
+                className="flex-1 bg-accent text-accent-foreground px-6 py-3 rounded-md font-bold text-center hover:bg-accent/90 transition-colors"
               >
                 Google Maps
               </a>
               <a
                 href="#volunteer"
-                className="flex-1 flex h-14 items-center justify-center bg-transparent border-2 border-primary text-primary px-4 sm:px-8 rounded-md font-bold text-center whitespace-nowrap hover:bg-primary hover:text-primary-foreground transition-colors"
+                className="flex-1 bg-transparent border-2 border-primary text-primary px-6 py-3 rounded-md font-bold text-center hover:bg-primary hover:text-primary-foreground transition-colors"
               >
                 {t("Ich komme!", "Vou participar!")}
               </a>
