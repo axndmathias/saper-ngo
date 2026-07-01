@@ -163,7 +163,7 @@ export function Navbar() {
 
           <a
             href="#donate"
-            className="bg-accent text-accent-foreground px-8 py-3 rounded-md font-bold hover:bg-white hover:text-primary transition-colors mt-4"
+            className="flex h-14 items-center justify-center bg-accent text-accent-foreground px-4 sm:px-8 rounded-md font-bold whitespace-nowrap hover:bg-white hover:text-primary transition-colors mt-4"
             onClick={() => setIsMobileMenuOpen(false)}
           >
             {t("Jetzt Spenden", "Doe Agora")}
