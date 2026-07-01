@@ -48,7 +48,14 @@
       "altDe": "Bildung und Lernen",
       "altPt": "Educação e aprendizado",
       "order": 7
+    },
+    {
+      "id": "gallery-1782898415525",
+      "src": "/saper-ngo/uploads/gallery/gallery-1782898415525.jpg",
+      "altDe": "Test",
+      "altPt": "Test",
+      "order": 8
     }
   ],
-  "version": 10
+  "version": 11
 }
