@@ -8,6 +8,7 @@ import { AuthProvider } from "@/contexts/auth-context";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import AdminLogin from "@/pages/admin-login";
+import AdminSetup from "@/pages/admin-setup";
 import AdminDashboard from "@/pages/admin-dashboard";
 import AdminGallery from "@/pages/admin-gallery";
 
@@ -36,6 +37,7 @@ function Router() {
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/admin" component={AdminLogin} />
+        <Route path="/admin/setup" component={AdminSetup} />
         <Route path="/admin/dashboard" component={AdminDashboard} />
         <Route path="/admin/gallery" component={AdminGallery} />
         <Route component={NotFound} />

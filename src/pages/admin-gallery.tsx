@@ -5,6 +5,7 @@ import { useLang } from "@/contexts/language-context";
 import type { GalleryItem } from "@/types/gallery";
 import { useGalleryData, isDirty, loadPublishedIntoAdmin, fetchPublishedGallery, getAdminGallery, jsonHash } from "@/hooks/use-gallery-data";
 import { commitFiles, loadGitHubConfig, saveGitHubConfig, clearGitHubConfig, type GitHubConfig } from "@/lib/github-api";
+import { compressImage } from "@/lib/image-utils";
 import { FaArrowUp, FaArrowDown, FaPlus, FaEdit, FaTrash, FaArrowLeft, FaLink, FaUpload, FaCog, FaSave, FaCheckCircle, FaExclamationCircle, FaSpinner, FaCloudDownloadAlt, FaExclamationTriangle, FaSyncAlt } from "react-icons/fa";
 
 type ModalMode = "add" | "edit" | "config" | null;
@@ -48,6 +49,7 @@ export default function AdminGallery() {
   const [src, setSrc] = useState("");
   const [filePreview, setFilePreview] = useState<string | null>(null);
   const [fileName, setFileName] = useState("");
+  const [compressionInfo, setCompressionInfo] = useState("");
   const [altDe, setAltDe] = useState("");
   const [altPt, setAltPt] = useState("");
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
@@ -93,16 +95,27 @@ export default function AdminGallery() {
     setModal("edit");
   };
 
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     setFileName(file.name);
-    const reader = new FileReader();
-    reader.onload = () => {
-      setFilePreview(reader.result as string);
-      setSrc(reader.result as string);
-    };
-    reader.readAsDataURL(file);
+    setCompressionInfo("");
+    try {
+      const result = await compressImage(file);
+      setFilePreview(result.dataUrl);
+      setSrc(result.dataUrl);
+      const saved = (result.compressedSize / 1024).toFixed(0);
+      const original = (result.originalSize / 1024).toFixed(0);
+      const ratio = ((1 - result.compressedSize / result.originalSize) * 100).toFixed(0);
+      setCompressionInfo(`${original}KB → ${saved}KB (${ratio}% menor)`);
+    } catch {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setFilePreview(reader.result as string);
+        setSrc(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSave = () => {
@@ -473,6 +486,9 @@ export default function AdminGallery() {
                         ✕
                       </button>
                       <p className="text-gray-500 text-xs mt-1 truncate">{fileName}</p>
+                      {compressionInfo && (
+                        <p className="text-green-400 text-[10px] mt-0.5">{compressionInfo}</p>
+                      )}
                     </div>
                   )}
                 </div>

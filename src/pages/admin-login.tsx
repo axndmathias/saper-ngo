@@ -5,31 +5,44 @@ import { useLang } from "@/contexts/language-context";
 import saperLogo from "@/assets/saper_logo.png";
 
 export default function AdminLogin() {
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { login, isAuthenticated } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const { isAuthenticated, isSetup, login } = useAuth();
   const { lang, setLang, t } = useLang();
   const [, setLocation] = useLocation();
+
+  if (!isSetup) {
+    setLocation("/admin/setup");
+    return null;
+  }
 
   if (isAuthenticated) {
     setLocation("/admin/dashboard");
     return null;
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
-    if (!username || !password) {
-      setError(t("Bitte alle Felder ausfüllen", "Preencha todos os campos"));
+    if (!password) {
+      setError(t("Bitte Passwort eingeben", "Por favor, insira a senha"));
       return;
     }
 
-    if (login(username, password)) {
-      setLocation("/admin/dashboard");
-    } else {
-      setError(t("Benutzername oder Passwort falsch", "Usuário ou senha incorretos"));
+    setLoading(true);
+    try {
+      const ok = await login(password);
+      if (ok) {
+        setLocation("/admin/dashboard");
+      } else {
+        setError(t("Passwort falsch", "Senha incorreta"));
+      }
+    } catch {
+      setError(t("Fehler beim Anmelden", "Erro ao fazer login"));
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -61,17 +74,6 @@ export default function AdminLogin() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm text-gray-300 mb-1">{t("Benutzername", "Usuário")}</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full bg-white/10 border border-white/20 rounded-md px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-accent transition-colors"
-              placeholder="admin"
-            />
-          </div>
-
-          <div>
             <label className="block text-sm text-gray-300 mb-1">{t("Passwort", "Senha")}</label>
             <input
               type="password"
@@ -79,6 +81,7 @@ export default function AdminLogin() {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full bg-white/10 border border-white/20 rounded-md px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-accent transition-colors"
               placeholder="••••"
+              autoFocus
             />
           </div>
 
@@ -88,9 +91,12 @@ export default function AdminLogin() {
 
           <button
             type="submit"
-            className="w-full bg-accent text-accent-foreground font-bold py-2.5 rounded-md hover:bg-white hover:text-primary transition-colors"
+            disabled={loading}
+            className="w-full bg-accent text-accent-foreground font-bold py-2.5 rounded-md hover:bg-white hover:text-primary transition-colors disabled:opacity-50"
           >
-            {t("Einloggen", "Entrar")}
+            {loading
+              ? t("Wird angemeldet...", "Entrando...")
+              : t("Einloggen", "Entrar")}
           </button>
         </form>
       </div>
