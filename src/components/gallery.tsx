@@ -84,7 +84,7 @@ export function Gallery() {
         <div className={`mt-16 text-center ${hasMore ? '' : 'hidden'}`}>
           <button
             onClick={() => setShowAll((prev) => !prev)}
-            className="bg-transparent border-2 border-primary text-primary px-8 py-3 rounded-md hover:bg-primary hover:text-primary-foreground transition-colors uppercase tracking-wider"
+            className="bg-transparent border-2 border-primary text-primary px-6 py-3 rounded-md font-bold text-center hover:bg-primary hover:text-primary-foreground transition-colors"
           >
             {showAll ? t("Weniger anzeigen", "Ver Menos") : t("Mehr anzeigen", "Ver Mais")}
           </button>
