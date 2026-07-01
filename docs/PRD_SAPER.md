@@ -64,8 +64,8 @@
 * **DE-CH:** Formular mit Name, E-Mail, Telefon, gewuenschter Rolle und verpflichtender Einwilligung.
 
 ### 4.7 Galeria
-* **PT-BR:** Mosaico visual responsivo com 6 fotos visiveis, botao "Ver Mais" expande o grid ate 12 fotos. A primeira foto (Social) comeca oculta atras do botao. Admin gerencia fotos via CRUD.
-* **DE-CH:** Responsives visuelles Mosaik mit 6 sichtbaren Fotos, Button "Mehr anzeigen" erweitert das Grid auf bis zu 12 Fotos. Das erste Foto (Social) beginnt versteckt hinter dem Button. Admin verwaltet Fotos via CRUD.
+* **PT-BR:** Mosaico visual responsivo com 6 fotos visiveis, botao "Ver Mais" expande o grid ate 12 fotos. A primeira foto (Social) comeca oculta atras do botao. Admin gerencia fotos via CRUD com compressao automatica (1200px, JPEG 0.8) e publicacao para o GitHub via API com version tracking.
+* **DE-CH:** Responsives visuelles Mosaik mit 6 sichtbaren Fotos, Button "Mehr anzeigen" erweitert das Grid auf bis zu 12 Fotos. Das erste Foto (Social) beginnt versteckt hinter dem Button. Admin verwaltet Fotos via CRUD mit automatischer Komprimierung (1200px, JPEG 0.8) und GitHub-API-Publikation mit Version-Tracking.
 
 ### 4.8 Depoimentos
 * **PT-BR:** Tres depoimentos para reforcar confianca e validacao social.
@@ -76,8 +76,8 @@
 * **DE-CH:** Einfache E-Mail-Interessenabfrage als Kontakt-CTA.
 
 ### 4.11 Admin
-* **PT-BR:** Sistema de administracao embutido na SPA: login protegido (/admin), dashboard com grid de componentes, CRUD visual por secao. Toggle DE/PT disponivel.
-* **DE-CH:** In die SPA integriertes Admin-System: geschuetzter Login (/admin), Dashboard mit Komponenten-Grid, visuelles CRUD pro Bereich. DE/PT-Umschalter verfuegbar.
+* **PT-BR:** Sistema de administracao embutido na SPA: login protegido com SHA-256 (/admin, /admin/setup), dashboard com grid de componentes e alterar senha, CRUD visual por secao com publicacao via GitHub API. Toggle DE/PT disponivel.
+* **DE-CH:** In die SPA integriertes Admin-System: geschuetzter Login mit SHA-256 (/admin, /admin/setup), Dashboard mit Komponenten-Grid und Passwort-aendern, visuelles CRUD pro Bereich mit GitHub-API-Publikation. DE/PT-Umschalter verfuegbar.
 
 ### 4.10 Rodape
 * **PT-BR:** Transparencia de doacoes, IBAN, links institucionais e blocos legais.
@@ -93,11 +93,14 @@
 | RF-05 | Reforcar prova social com depoimentos e imagens. | Soziale Glaubwuerdigkeit mit Testimonials und Bildern staerken. |
 | RF-06 | Exibir informacao de doacao com transparencia. | Spendeninformationen mit Transparenz anzeigen. |
 | RF-07 | Manter o rodape legal acessivel e visivel. | Den rechtlichen Footer sichtbar und zugänglich halten. |
-| RF-08 | Autenticar admin com login/senha via localStorage. | Admin mit Login/Passwort via localStorage authentifizieren. |
-| RF-09 | Exibir dashboard admin com grid de componentes gerenciáveis. | Admin-Dashboard mit Grid verwaltbarer Komponenten anzeigen. |
-| RF-10 | CRUD visual da galeria de fotos com limite de 12. | Visuelles CRUD fuer Fotogalerie mit Limit von 12. |
-| RF-11 | Exibir 6 fotos na galeria com botao "Ver Mais" para expandir. | 6 Fotos in der Galerie anzeigen mit "Mehr anzeigen"-Button zum Erweitern. |
+| RF-08 | Autenticar admin com hash SHA-256, senha definida no primeiro acesso via /admin/setup. | Admin mit SHA-256-Hash authentifizieren, Passwort beim ersten Zugriff via /admin/setup festlegen. |
+| RF-09 | Exibir dashboard admin com grid de componentes gerenciáveis e opcao de alterar senha. | Admin-Dashboard mit Grid verwaltbarer Komponenten und Passwort-aendern-Option anzeigen. |
+| RF-10 | CRUD visual da galeria de fotos com limite de 12, compressao automatica no upload. | Visuelles CRUD fuer Fotogalerie mit Limit von 12, automatischer Komprimierung beim Upload. |
+| RF-11 | Exibir 6 fotos na galeria com botao "Ver Mais" para expandir. Buscar dados do GitHub com fallback localStorage. | 6 Fotos in der Galerie anzeigen mit "Mehr anzeigen"-Button. Daten von GitHub abrufen mit localStorage-Fallback. |
 | RF-12 | Alternar idioma DE/PT no admin. | Sprache DE/PT im Admin umschalten. |
+| RF-13 | Publicar dados da galeria no GitHub via API com version tracking. | Galerie-Daten ueber GitHub-API mit Version-Tracking publizieren. |
+| RF-14 | Sincronizar dados publicados do GitHub com indicadores visuais de status (publicado/nao publicado). | Publizierte Daten von GitHub synchronisieren mit visuellen Status-Indikatoren (publiziert/nicht publiziert). |
+| RF-15 | Comprimir imagens no upload (max 1200px, JPEG 0.8) para reduzir ~90% do tamanho. | Bilder beim Upload komprimieren (max 1200px, JPEG 0.8) fuer ~90% Groessenreduktion. |
 
 ## 6. Requisitos de conteudo / Inhaltsanforderungen
 * **PT-BR:** O texto deve existir em PT e DE para as areas visiveis da pagina.

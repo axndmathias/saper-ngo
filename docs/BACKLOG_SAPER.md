@@ -28,7 +28,7 @@
 | DONE-10 | Restaurar deploy workflow nativo actions/deploy-pages@v4. | Native deploy-Workflow actions/deploy-pages@v4 wiederherstellen. | high | done |
 | DONE-11 | Adicionar "Desenvolvido por axnd" com icone GitHub no footer. | "Desenvolvido por axnd" mit GitHub-Symbol im Footer hinzufuegen. | low | done |
 | DONE-12 | Configurar SPA routing no GitHub Pages (404.html + RedirectHandler). | SPA-Routing auf GitHub Pages einrichten (404.html + RedirectHandler). | high | done |
-| DONE-13 | Criar AuthContext com localStorage (admin/1234). | AuthContext mit localStorage erstellen (admin/1234). | high | done |
+| DONE-13 | Criar AuthContext com localStorage e hash SHA-256 (admin/1234 substituido). | AuthContext mit localStorage und SHA-256-Hash erstellen (admin/1234 ersetzt). | high | done |
 | DONE-14 | Criar tela de login /admin com toggle DE/PT. | Login-Seite /admin mit DE/PT-Umschalter erstellen. | high | done |
 | DONE-15 | Criar dashboard admin /admin/dashboard com toggle DE/PT. | Admin-Dashboard /admin/dashboard mit DE/PT-Umschalter erstellen. | high | done |
 | B-16 | Remover os icones de LinkedIn e Twitter do rodape. | Die LinkedIn- und Twitter-Symbole aus der Fusszeile entfernen. | high | done |
@@ -36,6 +36,14 @@
 | B-18 | Adicionar icone de admin no navbar que leva para /admin. | Admin-Symbol in der Navbar hinzufuegen, das zu /admin fuehrt. | medium | done |
 | B-05 | Revisar a experiencia mobile para evitar cortes, excesso de espaco e desalinhamentos. | Mobile-Erlebnis pruefen, um Schnitte, zu viel Abstand und Fehlanordnungen zu vermeiden. | medium | done |
 | DONE-17 | Adicionar toggle DE/PT visivel sempre no mobile (fora do menu hamburguer). | DE/PT-Umschalter auf Mobilgeraeten immer sichtbar machen (ausserhalb des Hamburger-Menus). | medium | done |
+| DONE-18 | Refatorar auth: substituir admin/1234 por SHA-256 com senha definida no primeiro acesso (/admin/setup). | Auth umstellen: admin/1234 durch SHA-256 mit Passwort-Festlegung beim ersten Zugriff (/admin/setup) ersetzen. | high | done |
+| DONE-19 | Criar hook generico useLocalStorage com debounce 300ms, flush no unmount e sync entre abas. | Generischen useLocalStorage-Hook mit 300ms Debounce, Flush bei Unmount und Cross-Tab-Sync erstellen. | high | done |
+| DONE-20 | Implementar compressao de imagens no upload (Canvas API, 1200px, JPEG 0.8). | Bildkomprimierung beim Upload implementieren (Canvas API, 1200px, JPEG 0.8). | high | done |
+| DONE-21 | CRUD completo da galeria com publicacao via GitHub API e version tracking. | Vollstaendiges Galerie-CRUD mit GitHub-API-Publikation und Version-Tracking. | high | done |
+| DONE-22 | Indicadores de status (publicado/nao publicado) e sincronizacao dos dados do GitHub. | Status-Indikatoren (publiziert/nicht publiziert) und Synchronisation der GitHub-Daten. | high | done |
+| DONE-23 | Botao "Verificar" deploy com polling a cada 5s por ate 60s. | "Verifizieren"-Button fuer Deployment mit 5s-Polling bis zu 60s. | high | done |
+| DONE-24 | Botao "Ver Mais" sempre no DOM (CSS hidden) para evitar timing issues com React. | "Mehr anzeigen"-Button immer im DOM (CSS hidden) um React-Timing-Probleme zu vermeiden. | high | done |
+| DONE-25 | Adicionar alterar senha no dashboard admin. | Passwort-aendern-Funktion im Admin-Dashboard hinzufuegen. | high | done |
 
 ## 4. Prioridade alta / Hohe Prioritaet
 | ID | PT-BR | DE-CH | Voce participa? | Status |
@@ -52,9 +60,9 @@
 | B-08 | Revisar se a newsletter deve ser apenas CTA ou captura real. | Pruefen, ob der Newsletter nur CTA oder echte Erfassung sein soll. | Sim / Ja | pending |
 | B-10 | Refinar a secao de depoimentos para incluir historias mais fortes. | Die Testimonials-Sektion mit staerkeren Geschichten verfeinern. | Sim / Ja | pending |
 | B-11 | Padronizar microcopy dos botoes e CTAs da landing page. | Die Microcopy der Buttons und CTAs auf der Landingpage vereinheitlichen. | Nein / Nein | pending |
-| B-19 | Criar base de dados do admin: types, defaults, storage (localStorage), hook useAdminData. | Admin-Datenbasis erstellen: types, defaults, storage (localStorage), Hook useAdminData. | Nein / Nein | pending |
+| B-19 | Criar base de dados do admin: types, defaults, storage (localStorage), hook generico useLocalStorage. | Admin-Datenbasis erstellen: types, defaults, storage (localStorage), generischer useLocalStorage-Hook. | Nein / Nein | in_progress |
 | B-22 | CRUD visual de Eventos (adicionar, editar, excluir, reordenar). | Visuelles CRUD fuer Events (hinzufuegen, bearbeiten, loeschen, neu ordnen). | Nein / Nein | pending |
-| B-23 | CRUD visual da Galeria de fotos: 6 fotos visiveis, botao "Ver mais" expande ate 12. Foto Social (1ª) comeca oculta atras do botao. | Visuelles CRUD fuer die Fotogalerie: 6 sichtbare Fotos, Button "Mehr anzeigen" erweitert auf bis zu 12. Social-Foto (1.) beginnt versteckt hinter dem Button. | Nein / Nein | in_progress |
+| B-23 | CRUD visual da Galeria de fotos: 6 fotos visiveis, botao "Ver mais" expande ate 12. Foto Social (1ª) comeca oculta atras do botao. | Visuelles CRUD fuer die Fotogalerie: 6 sichtbare Fotos, Button "Mehr anzeigen" erweitert auf bis zu 12. Social-Foto (1.) beginnt versteckt hinter dem Button. | Nein / Nein | done |
 | B-24 | CRUD visual de Causas. | Visuelles CRUD fuer Causes. | Nein / Nein | pending |
 | B-25 | CRUD visual de Depoimentos. | Visuelles CRUD fuer Testimonials. | Nein / Nein | pending |
 | B-26 | Editar Hero (texto PT/DE, imagem). | Hero bearbeiten (Text PT/DE, Bild). | Nein / Nein | pending |
@@ -64,7 +72,7 @@
 ## 6. Prioridade baixa / Niedrige Prioritaet
 | ID | PT-BR | DE-CH | Voce participa? | Status |
 | :--- | :--- | :--- | :--- | :--- |
-| B-12 | Upload de fotos direto do admin com preview. | Foto-Upload direkt aus dem Admin mit Vorschau. | Sim / Ja | pending |
+| B-12 | Upload de fotos direto do admin com preview e compressao automatica. | Foto-Upload direkt aus dem Admin mit Vorschau und automatischer Komprimierung. | Sim / Ja | done |
 | B-13 | Planejar um backend futuro para voluntariado e newsletter. | Ein spaeteres Backend fuer Freiwillige und Newsletter planen. | Sim / Ja | pending |
 | B-14 | Avaliar automatizacao de publicacao e fluxo editorial. | Automatisierung fuer Publikation und redaktionellen Ablauf pruefen. | Sim / Ja | pending |
 | B-15 | Adicionar imagem do Twint para DE-CH e imagem do Pix para PT-BR nas secoes de doacao. | Ein Bild fuer Twint auf DE-CH und ein Bild fuer Pix auf PT-BR in den Spendenbereichen ergaenzen. | Sim / Ja | pending |
@@ -82,13 +90,16 @@
 ### Fase 2 — Admin offline-first (sistema completo)
 | ID | Descricao | Status |
 | :--- | :--- | :--- |
-| DONE-13 | AuthContext com localStorage (admin/1234) | done |
+| DONE-13 | AuthContext com SHA-256, senha no primeiro acesso (/admin/setup) | done |
 | DONE-14 | Login page /admin com toggle DE/PT | done |
 | DONE-15 | Dashboard admin /admin/dashboard com toggle DE/PT | done |
+| DONE-18 | Auth refatorado: SHA-256, setup, changePassword | done |
+| DONE-19 | Hook generico useLocalStorage com debounce 300ms | done |
+| DONE-21 | CRUD completo da galeria com compressao e publicacao GitHub | done |
 | B-18 | Icone de admin no navbar (link para /admin) | done |
-| B-19 | Base de dados: types, defaults, storage, hook useAdminData | pending |
+| B-12 | Upload de fotos com preview e compressao automatica | done |
+| B-19 | Hook generico useLocalStorage criado (falta integrar demais CRUDs) | in_progress |
 | B-22 | CRUD visual de Eventos | pending |
-| B-23 | CRUD visual da Galeria de fotos: 6 visiveis, "Ver mais" ate 12, 1ª oculta | in_progress |
 | B-24 | CRUD visual de Causas | pending |
 | B-25 | CRUD visual de Depoimentos | pending |
 | B-26 | Editar Hero (texto PT/DE, imagem) | pending |
@@ -98,9 +109,11 @@
 ### Fase 3 — Persistencia e publicacao
 | ID | Descricao | Status |
 | :--- | :--- | :--- |
-| B-13 | Salvar dados no repositorio via GitHub API (login OAuth) | pending |
+| DONE-22 | Publicacao da galeria via GitHub API com version tracking | done |
+| DONE-23 | Botao "Verificar" deploy com polling | done |
+| DONE-24 | Sincronizacao com indicadores visuais (publish/nao publicado) | done |
+| B-13 | Publicar demais componentes (Events, Causes, etc.) no GitHub | pending |
 | B-14 | Automatizar deploy ao salvar dados no repositorio | pending |
-| B-12 | Upload de fotos direto do admin com preview | pending |
 
 ### Fase 4 — Refinamentos
 | ID | Descricao | Status |

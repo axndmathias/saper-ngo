@@ -20,8 +20,8 @@
 * **DE-CH:** `App.tsx` umschliesst die Anwendung mit `QueryClientProvider`, `LanguageProvider`, `TooltipProvider`, `WouterRouter` und `Toaster`.
 
 ### 3.2 Rotas
-* **PT-BR:** Rotas publicas: `/` (Home). Rotas administrativas: `/admin` (login), `/admin/dashboard`, `/admin/gallery`. Fallback para `NotFound`.
-* **DE-CH:** Oeffentliche Routen: `/` (Home). Admin-Routen: `/admin` (Login), `/admin/dashboard`, `/admin/gallery`. Fallback auf `NotFound`.
+* **PT-BR:** Rotas publicas: `/` (Home). Rotas administrativas: `/admin` (login), `/admin/setup` (criar senha), `/admin/dashboard`, `/admin/gallery`. Fallback para `NotFound`.
+* **DE-CH:** Oeffentliche Routen: `/` (Home). Admin-Routen: `/admin` (Login), `/admin/setup` (Passwort erstellen), `/admin/dashboard`, `/admin/gallery`. Fallback auf `NotFound`.
 
 ### 3.3 Base visual
 * **PT-BR:** O layout global usa tokens de tema em `src/index.css`, com tipografia definida por `Inter`, `Playfair Display` e `Caveat`.
@@ -52,7 +52,7 @@
 * **About:** apresentacao institucional e tres pilares.
 * **Causes:** cards horizontais com quatro areas de impacto.
 * **FeaturedCampaign:** formulario de voluntariado.
-* **Gallery:** mosaico visual responsivo com 6 fotos visiveis e botao "Ver Mais" que expande ate 12. Dados vindos de localStorage com fallback para defaults hardcoded.
+* **Gallery:** mosaico visual responsivo com 6 fotos visiveis e botao "Ver Mais" que expande ate 12. Dados vindos do GitHub (se publicados) com fallback para cache localStorage e defaults. Retry na fetch (3 tentativas).
 * **Testimonials:** prova social em cards.
 * **Newsletter:** CTA simples de contato.
 * **Footer:** doacao, links institucionais e legal.
@@ -96,8 +96,8 @@
 * **DE-CH:** Die Kopieraktion nutzt `navigator.clipboard.writeText`.
 
 ### 5.5 Conteudo visual
-* **PT-BR:** As imagens da pagina sao majoritariamente externas e otimizadas via URLs publicas. A galeria agora le os dados de localStorage via hook `useGalleryData`, com fallback para defaults hardcoded.
-* **DE-CH:** Die Bilder der Seite sind groesstenteils extern und ueber oeffentliche URLs eingebunden. Die Galerie liest Daten jetzt aus localStorage via `useGalleryData`-Hook, mit Fallback auf hardcodierte Defaults.
+* **PT-BR:** As imagens da pagina sao majoritariamente externas e otimizadas via URLs publicas. A galeria busca dados publicados do GitHub com retry (3 tentativas), fallback para cache localStorage e defaults. Upload de imagens com compressao automatica (1200px, JPEG 0.8).
+* **DE-CH:** Die Bilder der Seite sind groesstenteils extern und ueber oeffentliche URLs eingebunden. Die Galerie ruft publizierte Daten von GitHub ab (3 Versuche), mit Fallback auf localStorage-Cache und Defaults. Bild-Upload mit automatischer Komprimierung (1200px, JPEG 0.8).
 
 * **PT-BR:** Os blocos usam `motion` para animacoes de entrada e hover.
 * **DE-CH:** Die Bloecke verwenden `motion` fuer Einblend- und Hover-Animationen.
@@ -106,11 +106,11 @@
 * **PT-BR:** O site nao depende de backend para o conteudo atual.
 * **DE-CH:** Die Website haengt fuer den aktuellen Inhalt nicht von einem Backend ab.
 
-* **PT-BR:** Evento, pilares, depoimentos e roles do formulario estao codificados diretamente nos componentes. A galeria agora le de localStorage com fallback hardcoded.
-* **DE-CH:** Event, Schwerpunkte, Testimonials und Formular-Rollen sind direkt in den Komponenten codiert. Die Galerie liest jetzt aus localStorage mit hardcodiertem Fallback.
+* **PT-BR:** Evento, pilares, depoimentos e roles do formulario estao codificados diretamente nos componentes. A galeria busca dados do GitHub (publicados) com fallback para cache localStorage e defaults.
+* **DE-CH:** Event, Schwerpunkte, Testimonials und Formular-Rollen sind direkt in den Komponenten codiert. Die Galerie ruft Daten von GitHub ab (publiziert) mit Fallback auf localStorage-Cache und Defaults.
 
-* **PT-BR:** Componentes gerenciados via admin usam localStorage como fonte primaria, com fallback para defaults hardcoded. Isso permite edicao via interface sem backend.
-* **DE-CH:** Ueber Admin verwaltete Komponenten nutzen localStorage als primaere Quelle, mit Fallback auf hardcodierte Defaults. Das ermoeglicht Bearbeitung per UI ohne Backend.
+* **PT-BR:** Componentes gerenciados via admin usam localStorage como fonte primaria de edicao e publicam para o GitHub via API. Isso permite persistencia remota sem backend dedicado.
+* **DE-CH:** Ueber Admin verwaltete Komponenten nutzen localStorage als primaere Bearbeitungsquelle und publizieren ueber die GitHub-API. Das ermoeglicht entfernte Persistenz ohne dediziertes Backend.
 
 ## 7. Componentes por arquivo / Komponenten nach Datei
 | Arquivo | Funcao |
@@ -121,17 +121,21 @@
 | `src/components/about.tsx` | Missao e tres pilares sociais |
 | `src/components/causes.tsx` | Quatro cards de causas |
 | `src/components/featured-campaign.tsx` | Formulario de voluntariado com toast |
-| `src/components/gallery.tsx` | Mosaico de imagens responsivo com localStorage + fallback |
-| `src/pages/admin-login.tsx` | Login protegido /admin com toggle DE/PT |
-| `src/pages/admin-dashboard.tsx` | Dashboard admin com grid de componentes |
-| `src/pages/admin-gallery.tsx` | CRUD visual da galeria de fotos |
-| `src/contexts/auth-context.tsx` | Autenticacao admin via localStorage |
-| `src/hooks/use-gallery-data.ts` | Hook de dados da galeria (localStorage + defaults) |
-| `src/data/gallery-defaults.ts` | Valores padrao da galeria (7 fotos) |
-| `src/types/gallery.ts` | Tipos da galeria |
+| `src/components/gallery.tsx` | Mosaico responsivo com fetch GitHub + retry (3x) + cache localStorage |
 | `src/components/testimonials.tsx` | Cards de depoimentos |
 | `src/components/newsletter.tsx` | CTA de contato por e-mail |
 | `src/components/footer.tsx` | Doacao, legal e links institucionais |
+| `src/pages/admin-login.tsx` | Login /admin com senha (SHA-256, async), sem username |
+| `src/pages/admin-setup.tsx` | Criacao de senha no primeiro acesso a /admin |
+| `src/pages/admin-dashboard.tsx` | Dashboard admin com grid + alterar senha |
+| `src/pages/admin-gallery.tsx` | CRUD visual da galeria (add/edit/delete/reorder/publish) com compressao integrada |
+| `src/contexts/auth-context.tsx` | Autenticacao admin com SHA-256, login/setup/changePassword async |
+| `src/hooks/use-gallery-data.ts` | Hook da galeria (fetch + localStorage + version tracking + dirty check) |
+| `src/hooks/use-local-storage.ts` | Hook generico com debounce 300ms, flush no unmount, sync entre abas |
+| `src/lib/image-utils.ts` | Compressao de imagens via Canvas API (1200px, JPEG 0.8, reducao ~90%) |
+| `src/lib/github-api.ts` | GitHub Content API (blob/tree/commit/ref) para publishing |
+| `src/data/gallery-defaults.ts` | Valores padrao da galeria (7 fotos) |
+| `src/types/gallery.ts` | Tipos da galeria |
 
 ## 8. Requisitos tecnicos nao funcionais / Technische nicht-funktionale Anforderungen
 * **PT-BR:** A interface precisa permanecer responsiva em desktop e mobile.
@@ -153,15 +157,15 @@
 * **PT-BR:** Nao existe persistencia remota para voluntarios ou newsletter.
 * **DE-CH:** Es gibt keine entfernte Persistenz fuer Freiwillige oder Newsletter.
 
-* **PT-BR:** Os depoimentos sao conteudo estatico. A galeria agora e gerenciável via admin CRUD.
-* **DE-CH:** Testimonials sind statische Inhalte. Die Galerie ist jetzt ueber Admin-CRUD verwaltbar.
+* **PT-BR:** Os depoimentos sao conteudo estatico. A galeria e gerenciável via admin CRUD com publicacao para o GitHub.
+* **DE-CH:** Testimonials sind statische Inhalte. Die Galerie ist ueber Admin-CRUD mit GitHub-Publikation verwaltbar.
 
 * **PT-BR:** A copia da IBAN e o feedback de voluntariado sao apenas interacoes locais.
 * **DE-CH:** IBAN-Kopie und Freiwilligen-Feedback sind nur lokale Interaktionen.
 
 ## 10. Roadmap tecnica / Technische Roadmap
-* **PT-BR:** Admin panel implementado: autenticacao, dashboard e CRUD da galeria em producao. Proximos componentes a serem adicionados: eventos, causas, depoimentos, hero, footer.
-* **DE-CH:** Admin-Panel implementiert: Authentifizierung, Dashboard und Galerie-CRUD in Produktion. Naechste Komponenten: Events, Causes, Testimonials, Hero, Footer.
+* **PT-BR:** Admin panel implementado com autenticacao SHA-256, dashboard, CRUD da galeria com compressao de imagens e publicacao via GitHub API (version tracking). Proximos CRUDs: eventos, causas, depoimentos, hero, footer.
+* **DE-CH:** Admin-Panel implementiert mit SHA-256-Authentifizierung, Dashboard, Galerie-CRUD mit Bildkomprimierung und GitHub-API-Publikation (Version-Tracking). Naechste CRUDs: Events, Causes, Testimonials, Hero, Footer.
 
 * **PT-BR:** Um backend pode ser introduzido para persistir formulario de voluntariado e newsletter.
 * **DE-CH:** Ein Backend kann spaeter eingefuehrt werden, um Freiwilligen- und Newsletter-Formulare zu speichern.
