@@ -84,7 +84,7 @@ export function Gallery() {
         <div className={`mt-16 ${hasMore ? '' : 'hidden'}`}>
           <button
             onClick={() => setShowAll((prev) => !prev)}
-            className="flex h-14 items-center justify-center bg-transparent border-2 border-primary text-primary px-4 sm:px-8 rounded-md font-bold text-center whitespace-nowrap hover:bg-primary hover:text-primary-foreground transition-colors"
+            className="flex h-14 w-52 items-center justify-center bg-transparent border-2 border-primary text-primary px-4 sm:px-8 rounded-md font-bold text-center whitespace-nowrap hover:bg-primary hover:text-primary-foreground transition-colors"
           >
             {showAll ? t("Weniger anzeigen", "Ver Menos") : t("Mehr anzeigen", "Ver Mais")}
           </button>
