@@ -77,7 +77,7 @@ export default function AdminDashboard() {
               <button
                 key={comp.id}
                 onClick={() => comp.id === "gallery" && setLocation("/admin/gallery")}
-                className="flex flex-col items-center gap-3 bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 hover:border-accent/50 transition-all text-center"
+                className="flex flex-col items-center gap-3 bg-white/5 border border-white/10 rounded-md p-6 hover:bg-white/10 hover:border-accent/50 transition-all text-center"
               >
                 <Icon className="text-2xl text-accent" />
                 <span className="text-white text-sm font-medium">

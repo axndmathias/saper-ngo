@@ -28,7 +28,7 @@ export function About() {
             </p>
 
             <div className="space-y-4 mb-10">
-              <div className="bg-accent/10 rounded-xl p-4 border-l-4 border-accent flex items-start gap-4">
+              <div className="bg-accent/10 rounded-md p-4 border-l-4 border-accent flex items-start gap-4">
                 <div className="mt-1 text-accent text-xl">
                   <FaHeart />
                 </div>
@@ -42,7 +42,7 @@ export function About() {
                 </div>
               </div>
 
-              <div className="bg-accent/10 rounded-xl p-4 border-l-4 border-accent flex items-start gap-4">
+              <div className="bg-accent/10 rounded-md p-4 border-l-4 border-accent flex items-start gap-4">
                 <div className="mt-1 text-accent text-xl">
                   <FaBook />
                 </div>
@@ -56,7 +56,7 @@ export function About() {
                 </div>
               </div>
 
-              <div className="bg-accent/10 rounded-xl p-4 border-l-4 border-accent flex items-start gap-4">
+              <div className="bg-accent/10 rounded-md p-4 border-l-4 border-accent flex items-start gap-4">
                 <div className="mt-1 text-accent text-xl">
                   <FaHandshake />
                 </div>
@@ -71,7 +71,7 @@ export function About() {
               </div>
             </div>
             
-            <button className="bg-primary text-primary-foreground px-8 py-4 rounded font-bold hover:bg-primary/90 transition-all shadow-md">
+            <button className="bg-primary text-primary-foreground px-8 py-4 rounded-md font-bold hover:bg-primary/90 transition-all shadow-md">
               {t("Mehr erfahren", "Saiba mais")}
             </button>
           </motion.div>
@@ -83,7 +83,7 @@ export function About() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="relative"
           >
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-2xl">
+            <div className="relative rounded-md overflow-hidden aspect-[4/3] shadow-2xl">
               <img 
                 src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=1000&auto=format&fit=crop" 
                 alt="Diverse hands clasped together in compassion" 
@@ -93,7 +93,7 @@ export function About() {
             </div>
             
             {/* Decorative outline */}
-            <div className="absolute -top-10 -right-10 w-48 h-48 border-4 border-accent rounded-2xl -z-10 opacity-30" />
+            <div className="absolute -top-10 -right-10 w-48 h-48 border-4 border-accent rounded-md -z-10 opacity-30" />
           </motion.div>
         </div>
       </div>

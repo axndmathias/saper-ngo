@@ -64,7 +64,7 @@ export function Causes() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="min-w-[320px] md:min-w-[400px] w-[320px] md:w-[400px] snap-center bg-white rounded-2xl shadow-xl overflow-hidden group border border-border/40 shrink-0"
+                className="min-w-[320px] md:min-w-[400px] w-[320px] md:w-[400px] snap-center bg-white rounded-md shadow-xl overflow-hidden group border border-border/40 shrink-0"
               >
                 <div className="h-64 overflow-hidden relative">
                   <img 
@@ -83,7 +83,7 @@ export function Causes() {
                   </p>
                   <a
                     href="#donate"
-                    className="w-full py-4 rounded bg-secondary text-primary font-bold hover:bg-accent hover:text-accent-foreground transition-colors flex items-center justify-center gap-2 group/btn"
+                    className="w-full py-4 rounded-md bg-secondary text-primary font-bold hover:bg-accent hover:text-accent-foreground transition-colors flex items-center justify-center gap-2 group/btn"
                   >
                     {t("Jetzt spenden", "Doe agora")}
                     <FaArrowRight className="group-hover/btn:translate-x-1 transition-transform" />

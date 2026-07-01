@@ -65,7 +65,7 @@ export function Gallery() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="relative rounded-xl overflow-hidden group break-inside-avoid shadow-sm hover:shadow-xl transition-shadow"
+              className="relative rounded-md overflow-hidden group break-inside-avoid shadow-sm hover:shadow-xl transition-shadow"
             >
               <img 
                 src={item.src} 
@@ -84,7 +84,7 @@ export function Gallery() {
         <div className={`mt-16 text-center ${hasMore ? '' : 'hidden'}`}>
           <button
             onClick={() => setShowAll((prev) => !prev)}
-            className="bg-transparent border-2 border-primary text-primary px-8 py-3 rounded font-bold hover:bg-primary hover:text-primary-foreground transition-colors uppercase tracking-wider"
+            className="bg-transparent border-2 border-primary text-primary px-8 py-3 rounded-md hover:bg-primary hover:text-primary-foreground transition-colors uppercase tracking-wider"
           >
             {showAll ? t("Weniger anzeigen", "Ver Menos") : t("Mehr anzeigen", "Ver Mais")}
           </button>

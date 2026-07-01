@@ -14,7 +14,7 @@ export function Newsletter() {
       </div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="bg-primary rounded-3xl p-8 md:p-16 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-10">
+        <div className="bg-primary rounded-md p-8 md:p-16 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-10">
           <motion.div 
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}

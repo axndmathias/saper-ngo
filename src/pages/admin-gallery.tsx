@@ -223,14 +223,14 @@ export default function AdminGallery() {
                   setPublishStatus("error");
                 }
               }}
-              className="text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10"
+              className="text-gray-400 hover:text-white transition-colors p-2 rounded-md hover:bg-white/10"
               title={t("Veröffentlichte Daten laden", "Carregar dados publicados")}
             >
               <FaCloudDownloadAlt />
             </button>
             <button
               onClick={() => { setGitToken(""); setGitTokenSaved(false); setModal("config"); }}
-              className="text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10"
+              className="text-gray-400 hover:text-white transition-colors p-2 rounded-md hover:bg-white/10"
               title={t("GitHub Einstellungen", "Configurações GitHub")}
             >
               <FaCog />
@@ -238,7 +238,7 @@ export default function AdminGallery() {
             <button
               onClick={handlePublish}
               disabled={publishStatus === "publishing"}
-              className="flex items-center justify-center bg-green-600 text-white w-9 h-9 rounded-lg text-sm hover:bg-green-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="flex items-center justify-center bg-green-600 text-white w-9 h-9 rounded-md text-sm hover:bg-green-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               title={t("Veröffentlichen", "Publicar")}
             >
               {publishStatus === "publishing" ? <FaSpinner className="animate-spin" /> : <FaSave />}
@@ -246,7 +246,7 @@ export default function AdminGallery() {
             <button
               onClick={openAdd}
               disabled={!items.length || items.length >= 12}
-              className="flex items-center justify-center bg-accent text-accent-foreground w-9 h-9 rounded-lg text-sm hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
+              className="flex items-center justify-center bg-accent text-accent-foreground w-9 h-9 rounded-md text-sm hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
               title={t("Hinzufügen", "Adicionar")}
             >
               <FaPlus />
@@ -331,7 +331,7 @@ export default function AdminGallery() {
         {items.length === 0 && (
           <div className="text-center py-20">
             <p className="text-gray-400 text-lg">{t("Keine Fotos in der Galerie.", "Nenhuma foto na galeria.")}</p>
-            <button onClick={openAdd} className="mt-4 bg-accent text-accent-foreground px-6 py-3 rounded-lg font-bold hover:opacity-90 transition-opacity">
+            <button onClick={openAdd} className="mt-4 bg-accent text-accent-foreground px-6 py-3 rounded-md font-bold hover:opacity-90 transition-opacity">
               <FaPlus className="inline mr-2" />{t("Erstes Foto hinzufügen", "Adicionar primeira foto")}
             </button>
           </div>
@@ -349,7 +349,7 @@ export default function AdminGallery() {
           {items.map((item) => (
             <div
               key={item.id}
-              className="bg-white/5 border border-white/10 rounded-xl overflow-hidden group"
+              className="bg-white/5 border border-white/10 rounded-md overflow-hidden group"
             >
               <div className="aspect-[4/3] overflow-hidden">
                 <img
@@ -405,13 +405,13 @@ export default function AdminGallery() {
 
       {modal && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-          <div className="bg-primary border border-white/10 rounded-xl w-full max-w-lg p-6">
+          <div className="bg-primary border border-white/10 rounded-md w-full max-w-lg p-6">
             <h2 className="text-white text-lg font-bold mb-4">
               {modal === "add" ? t("Foto hinzufügen", "Adicionar foto") : t("Foto bearbeiten", "Editar foto")}
             </h2>
 
             <div className="space-y-4">
-              <div className="flex gap-1 bg-white/5 rounded-lg p-1">
+              <div className="flex gap-1 bg-white/5 rounded-md p-1">
                 <button
                   type="button"
                   onClick={() => { setInputMode("url"); setSrc(""); setFilePreview(null); setFileName(""); }}
@@ -436,7 +436,7 @@ export default function AdminGallery() {
                     value={src}
                     onChange={(e) => setSrc(e.target.value)}
                     placeholder="https://..."
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-accent/50"
+                    className="w-full bg-white/5 border border-white/10 rounded-md px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-accent/50"
                   />
                 </div>
               ) : (
@@ -453,7 +453,7 @@ export default function AdminGallery() {
                     <button
                       type="button"
                       onClick={() => fileInputRef.current?.click()}
-                      className="w-full border-2 border-dashed border-white/10 rounded-lg p-8 flex flex-col items-center gap-2 text-gray-400 hover:border-accent/50 hover:text-accent transition-colors"
+                      className="w-full border-2 border-dashed border-white/10 rounded-md p-8 flex flex-col items-center gap-2 text-gray-400 hover:border-accent/50 hover:text-accent transition-colors"
                     >
                       <FaUpload className="text-2xl" />
                       <span className="text-sm">{t("Klicken zum Auswählen", "Clique para selecionar")}</span>
@@ -463,7 +463,7 @@ export default function AdminGallery() {
                       <img
                         src={filePreview}
                         alt="Preview"
-                        className="w-full h-40 object-cover rounded-lg"
+                        className="w-full h-40 object-cover rounded-md"
                       />
                       <button
                         type="button"
@@ -484,7 +484,7 @@ export default function AdminGallery() {
                   value={altDe}
                   onChange={(e) => setAltDe(e.target.value)}
                   placeholder={t("Kurze Beschreibung auf Deutsch", "Descrição curta em alemão")}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-accent/50"
+                  className="w-full bg-white/5 border border-white/10 rounded-md px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-accent/50"
                 />
               </div>
               <div>
@@ -494,7 +494,7 @@ export default function AdminGallery() {
                   value={altPt}
                   onChange={(e) => setAltPt(e.target.value)}
                   placeholder="Descrição curta em português"
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-accent/50"
+                  className="w-full bg-white/5 border border-white/10 rounded-md px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-accent/50"
                 />
               </div>
             </div>
@@ -509,7 +509,7 @@ export default function AdminGallery() {
               <button
                 onClick={handleSave}
                 disabled={(inputMode === "url" ? !src.trim() : !filePreview) || !altDe.trim() || !altPt.trim()}
-                className="bg-accent text-accent-foreground px-6 py-2 rounded-lg font-bold hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
+                className="bg-accent text-accent-foreground px-6 py-2 rounded-md font-bold hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {t("Speichern", "Salvar")}
               </button>
@@ -520,7 +520,7 @@ export default function AdminGallery() {
 
       {deleteConfirm && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-          <div className="bg-primary border border-white/10 rounded-xl w-full max-w-sm p-6">
+          <div className="bg-primary border border-white/10 rounded-md w-full max-w-sm p-6">
             <h2 className="text-white text-lg font-bold mb-2">{t("Foto löschen?", "Excluir foto?")}</h2>
             <p className="text-gray-400 text-sm mb-6">
               {t("Diese Aktion kann nicht rückgängig gemacht werden.", "Esta ação não pode ser desfeita.")}
@@ -534,7 +534,7 @@ export default function AdminGallery() {
               </button>
               <button
                 onClick={() => handleDelete(deleteConfirm)}
-                className="bg-red-500 text-white px-6 py-2 rounded-lg font-bold hover:bg-red-600 transition-colors"
+                className="bg-red-500 text-white px-6 py-2 rounded-md font-bold hover:bg-red-600 transition-colors"
               >
                 {t("Löschen", "Excluir")}
               </button>
@@ -545,7 +545,7 @@ export default function AdminGallery() {
 
       {modal === "config" && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-          <div className="bg-primary border border-white/10 rounded-xl w-full max-w-md p-6">
+          <div className="bg-primary border border-white/10 rounded-md w-full max-w-md p-6">
             <h2 className="text-white text-lg font-bold mb-4">{t("GitHub Einstellungen", "Configurações GitHub")}</h2>
             <p className="text-gray-400 text-sm mb-4">
               {t("Gib dein GitHub Personal Access Token ein, um Bilder und Daten direkt ins Repository zu veröffentlichen.", "Insira seu GitHub Personal Access Token para publicar imagens e dados diretamente no repositório.")}
@@ -559,7 +559,7 @@ export default function AdminGallery() {
                 value={gitToken}
                 onChange={(e) => setGitToken(e.target.value)}
                 placeholder="ghp_..."
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-accent/50"
+                className="w-full bg-white/5 border border-white/10 rounded-md px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-accent/50"
               />
             </div>
             {gitTokenSaved && (
@@ -584,7 +584,7 @@ export default function AdminGallery() {
                 <button
                   onClick={handleSaveConfig}
                   disabled={!gitToken.trim()}
-                  className="bg-accent text-accent-foreground px-6 py-2 rounded-lg font-bold hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="bg-accent text-accent-foreground px-6 py-2 rounded-md font-bold hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   {t("Speichern", "Salvar")}
                 </button>

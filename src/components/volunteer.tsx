@@ -62,7 +62,7 @@ export function Volunteer() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <div className="max-w-xl mx-auto bg-white rounded-2xl shadow-lg p-8">
+          <div className="max-w-xl mx-auto bg-white rounded-md shadow-lg p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="name">{t("Vollständiger Name", "Nome completo")} *</Label>

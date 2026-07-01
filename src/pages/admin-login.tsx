@@ -35,7 +35,7 @@ export default function AdminLogin() {
 
   return (
     <div className="min-h-screen bg-primary flex items-center justify-center px-4">
-      <div className="bg-white/5 border border-white/10 rounded-2xl p-8 w-full max-w-sm">
+      <div className="bg-white/5 border border-white/10 rounded-md p-8 w-full max-w-sm">
         <div className="flex justify-end mb-4">
           <div className="flex items-center gap-1">
             <button
@@ -66,7 +66,7 @@ export default function AdminLogin() {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-accent transition-colors"
+              className="w-full bg-white/10 border border-white/20 rounded-md px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-accent transition-colors"
               placeholder="admin"
             />
           </div>
@@ -77,7 +77,7 @@ export default function AdminLogin() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-accent transition-colors"
+              className="w-full bg-white/10 border border-white/20 rounded-md px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-accent transition-colors"
               placeholder="••••"
             />
           </div>
@@ -88,7 +88,7 @@ export default function AdminLogin() {
 
           <button
             type="submit"
-            className="w-full bg-accent text-accent-foreground font-bold py-2.5 rounded-lg hover:bg-white hover:text-primary transition-colors"
+            className="w-full bg-accent text-accent-foreground font-bold py-2.5 rounded-md hover:bg-white hover:text-primary transition-colors"
           >
             {t("Einloggen", "Entrar")}
           </button>

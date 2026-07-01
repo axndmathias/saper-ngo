@@ -22,7 +22,7 @@ export function Footer() {
       <div className="container mx-auto px-4 md:px-6">
         
         {/* Donations & Transparency Row */}
-        <div className="bg-white/5 rounded-2xl p-8 mb-12">
+        <div className="bg-white/5 rounded-md p-8 mb-12">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div className="space-y-3">
               <h3 className="text-white text-2xl font-bold flex items-center gap-3">
@@ -39,7 +39,7 @@ export function Footer() {
             </div>
             
             <div className="flex flex-col gap-2">
-              <div className="bg-white/10 rounded-xl p-4 inline-flex flex-col sm:flex-row sm:items-center gap-3">
+              <div className="bg-white/10 rounded-md p-4 inline-flex flex-col sm:flex-row sm:items-center gap-3">
                 <span className="text-gray-300 text-sm font-medium">
                   {t("Spendenkonto (IBAN)", "Conta para doações (IBAN)")}:
                 </span>
@@ -54,11 +54,11 @@ export function Footer() {
                   </button>
                 </div>
               </div>
-              <div className="mt-3 flex flex-row items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-4">
+              <div className="mt-3 flex flex-row items-center gap-4 rounded-md border border-white/10 bg-white/5 p-4">
                 <img
                   src={lang === "de" ? twintQr : pixQr}
                   alt={lang === "de" ? "Twint QR Code" : "Pix QR Code"}
-                  className="h-28 w-28 rounded-xl object-contain bg-white p-2"
+                  className="h-28 w-28 rounded-md object-contain bg-white p-2"
                 />
                 <div className="space-y-1 text-left">
                   <p className="text-sm font-semibold text-white">
@@ -89,14 +89,14 @@ export function Footer() {
               )}
             </p>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center text-primary hover:bg-white transition-colors shadow-sm">
+              <a href="#" className="w-10 h-10 bg-accent rounded-md flex items-center justify-center text-primary hover:bg-white transition-colors shadow-sm">
                 <FaFacebookF />
               </a>
               <a 
                 href="https://www.instagram.com/saperrj?igsh=dTkzODA4Z20wd3Vs" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center text-primary hover:bg-white transition-colors shadow-sm"
+                className="w-10 h-10 bg-accent rounded-md flex items-center justify-center text-primary hover:bg-white transition-colors shadow-sm"
               >
                 <FaInstagram />
               </a>

@@ -59,7 +59,7 @@ export function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: idx * 0.2 }}
-              className="bg-white/10 backdrop-blur-md border border-white/20 p-8 rounded-2xl relative"
+              className="bg-white/10 backdrop-blur-md border border-white/20 p-8 rounded-md relative"
             >
               <FaQuoteRight className="text-4xl text-accent/50 absolute top-8 right-8" />
               <p className="text-gray-200 text-lg leading-relaxed mb-8 relative z-10">

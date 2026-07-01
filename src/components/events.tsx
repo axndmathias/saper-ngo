@@ -36,7 +36,7 @@ export function Events() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row"
+          className="bg-white rounded-md overflow-hidden shadow-2xl flex flex-col md:flex-row"
         >
           {/* Left — image */}
           <div className="md:w-1/2 relative h-[280px] md:h-auto">
