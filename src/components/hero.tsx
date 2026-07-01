@@ -58,7 +58,7 @@ export function Hero() {
             </a>
             <a
               href="#events"
-              className="flex h-14 min-w-0 flex-1 basis-0 items-center justify-center whitespace-nowrap rounded-md px-4 text-center font-bold text-white transition-all hover:bg-white/10 sm:px-8"
+              className="flex h-14 min-w-0 flex-1 basis-0 items-center justify-center whitespace-nowrap rounded-md border-2 border-white/30 px-4 text-center font-bold text-white transition-all hover:bg-white/10 sm:px-8"
             >
               {t("Nächstes Event", "Próximo evento")}
             </a>
